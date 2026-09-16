@@ -48,7 +48,7 @@
  },
  "license": {
   "title": "License",
-  "html": "<p>The software running this site is open source, under the <a href=\"https://github.com/Tribhuvanachar/buddhi/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\"><strong>Apache License 2.0</strong></a>.</p><p>The texts themselves come from many different sources — public-domain editions, individually credited open-licence digitisation projects, and original work by this project's own scholars and volunteers. Each text's specific source and licence, where applicable, is recorded with that text rather than repeated here, since it differs work to work. See the <strong>Credits</strong> for the digitisation projects we build upon.</p>"
+  "html": "<p>The software running this site is open source, under the <a href=\"https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\"><strong>Apache License 2.0</strong></a>.</p><p>The texts themselves come from many different sources — public-domain editions, individually credited open-licence digitisation projects, and original work by this project's own scholars and volunteers. Each text's specific source and licence, where applicable, is recorded with that text rather than repeated here, since it differs work to work. See the <strong>Credits</strong> for the digitisation projects we build upon.</p>"
  },
  "terms": {
   "title": "Terms & Conditions",

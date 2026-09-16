@@ -50,7 +50,7 @@
   var BB_REPO = 'the working repository';
   var BB_BRANCH = 'main';
   var BH_OWNER = 'Tribhuvanachar';
-  var BH_REPO = 'buddhi';
+  var BH_REPO = 'Jagat';
   var BH_BRANCH = 'main';
   var GH_API = 'https://api.github.com';
   var TOKEN_KEY = 'brahmabuddhi_pat';
@@ -444,7 +444,7 @@
               'opts.headers.Authorization="token "+TOKEN;opts.headers.Accept="application/vnd.github.v3.raw";opts.cache="no-store";' +
               'return origFetch("https://api.github.com/repos/Tribhuvanachar/the working repository/contents/"+target.path+"?ref=main"+(resolved.query?resolved.query.replace("?","&"):""), opts);' +
             '}' +
-            'return origFetch("https://cdn.jsdelivr.net/gh/Tribhuvanachar/buddhi@main/"+target.path+(resolved.query||""), init);' +
+            'return origFetch("https://cdn.jsdelivr.net/gh/Tribhuvanachar/Jagat@main/"+target.path+(resolved.query||""), init);' +
           '}' +
         '}' +
         'return origFetch(input, init);' +
