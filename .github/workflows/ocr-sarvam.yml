@@ -76,6 +76,11 @@ jobs:
       - name: Check the private repo is reachable before spending anything
         # A missing or expired token must fail HERE, for free, not after Sarvam has
         # been paid and there is nowhere to put the text.
+        #
+        # Only for a real run. A dry run neither calls the paid API nor pushes, so
+        # requiring the push token would make it impossible to test that the OCR key
+        # itself is present -- which is exactly what a dry run is for.
+        if: ${{ inputs.mode == 'real-run' }}
         env:
           T: ${{ secrets.SHRIBUDDHI_TOKEN }}
         run: |
