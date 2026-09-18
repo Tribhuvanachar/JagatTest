@@ -87,7 +87,15 @@ jobs:
             # on every run; with 2>/dev/null hiding it the guard reported "truncated"
             # for a perfectly good 38 MB, 384-page PDF. A check that cannot pass is
             # not a check.
-            PAGES=$(python3 -c 'import fitz; print(fitz.open("source.pdf").page_count)' || echo 0)
+            # Reproduced locally before shipping, which is how this line finally got
+            # written correctly. `import fitz` prints a deprecation warning on STDOUT,
+            # so the capture became "warning: ...\n384" and `[ -gt 0 ]` answered
+            # "integer expression expected" for a perfectly good 384-page PDF. The
+            # previous version hid that behind 2>/dev/null and instead hid an
+            # IndentationError. Use the modern module name and keep only digits;
+            # stderr stays visible, because hiding a check's error output is how a
+            # check gets to fail silently for a day.
+            PAGES=$(python3 -c 'import pymupdf; print(pymupdf.open("source.pdf").page_count)' | tr -dc '0-9')
             if [ "${PAGES:-0}" -gt 0 ]; then echo "$(stat -c%s source.pdf) bytes, $PAGES page(s)"; break; fi
             echo "attempt $attempt: truncated — PyMuPDF counts 0 pages"; sleep 10
           done
