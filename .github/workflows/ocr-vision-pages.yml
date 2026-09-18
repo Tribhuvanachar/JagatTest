@@ -82,11 +82,12 @@ jobs:
           for attempt in 1 2 3; do
             curl -sS -L --max-time 900 --retry 3 --retry-delay 5 -o source.pdf "${{ inputs.pdf_url }}" || true
             file source.pdf | grep -qi pdf || { echo "attempt $attempt: not a PDF"; sleep 10; continue; }
-            PAGES=$(python3 -c "
-          import fitz
-          try: print(fitz.open('source.pdf').page_count)
-          except Exception: print(0)
-          " 2>/dev/null || echo 0)
+            # ONE LINE, and stderr NOT swallowed. The multi-line form carried this
+            # YAML block's indentation into `python3 -c`, which is an IndentationError
+            # on every run; with 2>/dev/null hiding it the guard reported "truncated"
+            # for a perfectly good 38 MB, 384-page PDF. A check that cannot pass is
+            # not a check.
+            PAGES=$(python3 -c 'import fitz; print(fitz.open("source.pdf").page_count)' || echo 0)
             if [ "${PAGES:-0}" -gt 0 ]; then echo "$(stat -c%s source.pdf) bytes, $PAGES page(s)"; break; fi
             echo "attempt $attempt: truncated — PyMuPDF counts 0 pages"; sleep 10
           done
