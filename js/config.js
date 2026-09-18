@@ -34,7 +34,7 @@ const appConfig = {
   // moved to the working repository; re-deploy from there once the pilot is ready.
   kamadhenuSpaceUrl: "",
   // Full ~1.65M-headword, 63-dictionary Kosha corpus, built and published
-  // to the "dist" branch of the separate Tribhuvanachar/buddhi-kosha-data
+  // to the "dist" branch of the separate Tribhuvanachar/Kosha
   // repo (too large for this repo's 1GB budget). Served over jsDelivr's
   // GitHub CDN, which mirrors the branch with permissive CORS. kosha.js
   // only ever fetches manifest.json plus small per-bucket/per-entry shards
