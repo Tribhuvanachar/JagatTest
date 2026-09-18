@@ -1,0 +1,136 @@
+name: OCR — Sarvam Document AI (layout kept)
+
+# Layout-preserving OCR of a scanned book through Sarvam AI's Document AI. Output is
+# STAGED, never merged: it is pushed into the PRIVATE repository's
+# data/ocr_staging/<work>/ on branch ocr-staging/<work>, for review in
+# admin/ocr-review.html. Approved text becomes a layer through ocr-review-merge.yml
+# over there.
+#
+# WHY THIS RUNS HERE. Actions is free and unlimited on a public repository and capped
+# at 2,000 minutes a month on a private one. At about six billable minutes a run,
+# a few hundred runs exhausts a month and stops every workflow in the account --
+# which is what happened in September 2026. Nothing sensitive is committed here: the
+# PDF arrives as an input, the text leaves for the private repo.
+#
+# COSTS MONEY: Sarvam bills per page from the prepaid balance on dashboard.sarvam.ai
+# (10 pages per request). mode=dry-run counts the pages and sends nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      pdf_url:
+        description: "Direct URL of the PDF (archive.org download link, Drive direct link, …)"
+        required: true
+        type: string
+      pages:
+        description: "Pages to send, e.g. 11-40 (each 10 pages is one job; 200 is the cap)"
+        required: true
+        type: string
+      work_slug:
+        description: "Work slug for the staging folder / branch in the private repo"
+        required: true
+        type: string
+      language:
+        description: "Sarvam language code"
+        type: choice
+        options: [sa-IN, kn-IN, hi-IN, en-IN, ta-IN, te-IN]
+        default: sa-IN
+      output_format:
+        description: "html keeps the most layout; md is lighter; json is raw blocks"
+        type: choice
+        options: [html, md, json]
+        default: html
+      mode:
+        description: "dry-run counts pages and spends nothing. real-run bills the balance."
+        type: choice
+        options: [dry-run, real-run]
+        default: dry-run
+
+permissions:
+  contents: read
+
+concurrency:
+  # The PAGE RANGE belongs in this key. Without it every chunk of one book shares a
+  # group, GitHub keeps at most ONE pending run per group, and queuing chunk 3 cancels
+  # chunk 2 while it waits — 39 of 129 runs vanished that way on 18 Sep 2026.
+  group: ocr-sarvam-${{ inputs.work_slug }}-${{ inputs.pages }}
+  cancel-in-progress: false
+
+jobs:
+  digitise:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        # Sparse: this repository's main branch is the published library, 15,800 files and
+        # 1.2 GB. A full checkout on every run would add minutes to a job that only needs
+        # four Python files, and minutes are the whole reason these workflows moved here.
+        with:
+          sparse-checkout: tools
+          sparse-checkout-cone-mode: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils qpdf
+
+      - name: Check the private repo is reachable before spending anything
+        # A missing or expired token must fail HERE, for free, not after Sarvam has
+        # been paid and there is nowhere to put the text.
+        env:
+          T: ${{ secrets.SHRIBUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$T" || { echo "::error::SHRIBUDDHI_TOKEN is not set. Add a fine-grained PAT with Contents: Read and write on Tribhuvanachar/ShriBuddhi."; exit 1; }
+          CODE=$(curl -sS -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $T" \
+            https://api.github.com/repos/Tribhuvanachar/ShriBuddhi)
+          [ "$CODE" = "200" ] || { echo "::error::SHRIBUDDHI_TOKEN cannot read Tribhuvanachar/ShriBuddhi (HTTP $CODE)"; exit 1; }
+          echo "private repo reachable"
+
+      - name: Digitise
+        env:
+          SARVAM_API_KEY: ${{ secrets.SARVAM_API_KEY }}
+        run: |
+          set -euo pipefail
+          ARGS=(--pdf-url "${{ inputs.pdf_url }}" --pages "${{ inputs.pages }}"
+                --work "${{ inputs.work_slug }}" --language "${{ inputs.language }}"
+                --format "${{ inputs.output_format }}" --out data/ocr_staging)
+          [ "${{ inputs.mode }}" = "dry-run" ] && ARGS+=(--dry-run)
+          python3 tools/sarvam_docai.py "${ARGS[@]}"
+
+      - name: Push the staged text into the private repo
+        if: ${{ inputs.mode == 'real-run' }}
+        env:
+          T: ${{ secrets.SHRIBUDDHI_TOKEN }}
+          SLUG: ${{ inputs.work_slug }}
+        run: |
+          set -euo pipefail
+          BR="ocr-staging/$SLUG"
+          STAGED="$RUNNER_TEMP/staged"
+          mkdir -p "$STAGED"
+          cp -r "data/ocr_staging/$SLUG/." "$STAGED/"
+          cp tools/build_ocr_staging_index.py "$RUNNER_TEMP/idx.py"
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git clone -q --depth 1 "https://x-access-token:$T@github.com/Tribhuvanachar/ShriBuddhi.git" "$RUNNER_TEMP/priv"
+          cd "$RUNNER_TEMP/priv"
+
+          # A push that can lose paid work is worth retrying properly. Two chunks of one
+          # book finishing together both commit, and the second push is a non-fast-forward;
+          # without this the job fails and the pages already paid for are gone. Each chunk
+          # writes its own sarvam_pages<A>-<B>.json, so there is nothing to merge — only a
+          # newer parent to sit on.
+          PUSHED=""
+          for attempt in 1 2 3 4 5; do
+            if git fetch -q origin "$BR"; then git checkout -q -B "$BR" FETCH_HEAD; else git checkout -q -B "$BR"; fi
+            mkdir -p "data/ocr_staging/$SLUG"
+            cp -r "$STAGED/." "data/ocr_staging/$SLUG/"
+            python3 "$RUNNER_TEMP/idx.py" || true
+            git add "data/ocr_staging/$SLUG" data/ocr_staging/index.json 2>/dev/null || git add "data/ocr_staging/$SLUG"
+            git commit -q -m "ocr: Sarvam Document AI pages ${{ inputs.pages }} for $SLUG" || true
+            if git push -q origin "HEAD:$BR" 2>/dev/null; then PUSHED=1; break; fi
+            echo "attempt $attempt: push rejected, retrying onto the new tip"
+            sleep $((attempt * 5))
+          done
+          [ -n "$PUSHED" ] || { echo "::error::Could not push after 5 attempts. The OCR is done and BILLED."; exit 1; }
+          echo "Staged to ShriBuddhi \`$BR\`" >> "$GITHUB_STEP_SUMMARY"

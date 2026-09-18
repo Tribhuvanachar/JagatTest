@@ -1,0 +1,133 @@
+name: OCR — Google Vision (flat text, page indexed)
+
+# Flat-text OCR of a scanned book through Google Cloud Vision. Runs BEFORE Sarvam on a
+# new book: its output is page-indexed, so it also answers "which page does the text
+# actually start on" for free, before the layout engine is dispatched.
+#
+# Runs here rather than in the private repo because Actions is free and unlimited on a
+# public repository. Nothing sensitive is committed: the PDF arrives as an input and the
+# text is pushed straight into the private repo.
+
+on:
+  workflow_dispatch:
+    inputs:
+      pdf_url:
+        description: "Direct-download URL of the PDF"
+        required: true
+        type: string
+      start_page:
+        description: "First PDF page (1-indexed, inclusive)"
+        required: true
+        type: string
+      end_page:
+        description: "Last PDF page (inclusive)"
+        required: true
+        type: string
+      work_slug:
+        description: "Folder under data/ocr_staging/ and branch suffix in the private repo"
+        required: true
+        type: string
+      dpi:
+        description: "Render resolution"
+        required: true
+        default: "200"
+        type: string
+      lang_hints:
+        description: "Vision language hints, comma-separated"
+        required: true
+        default: "sa,kn,hi"
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ocr-vision-${{ inputs.work_slug }}-${{ inputs.start_page }}-${{ inputs.end_page }}
+  cancel-in-progress: false
+
+jobs:
+  vision:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        # Sparse: this repository's main branch is the published library, 15,800 files and
+        # 1.2 GB. A full checkout on every run would add minutes to a job that only needs
+        # four Python files, and minutes are the whole reason these workflows moved here.
+        with:
+          sparse-checkout: tools
+          sparse-checkout-cone-mode: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install --quiet pymupdf
+
+      - name: Check the private repo is reachable before spending anything
+        env:
+          T: ${{ secrets.SHRIBUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$T" || { echo "::error::SHRIBUDDHI_TOKEN is not set."; exit 1; }
+          CODE=$(curl -sS -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $T" \
+            https://api.github.com/repos/Tribhuvanachar/ShriBuddhi)
+          [ "$CODE" = "200" ] || { echo "::error::SHRIBUDDHI_TOKEN cannot read the private repo (HTTP $CODE)"; exit 1; }
+
+      - name: Download the PDF
+        # `file` reads the magic bytes and nothing else, so a TRUNCATED download passes it
+        # and PyMuPDF then opens a document with zero pages — which surfaces as
+        # "page 1 not in document" and reads like a bad page range. That cost five runs of
+        # a 51-volume batch. Ask the parser that is about to use the file.
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            curl -sS -L --max-time 900 --retry 3 --retry-delay 5 -o source.pdf "${{ inputs.pdf_url }}" || true
+            file source.pdf | grep -qi pdf || { echo "attempt $attempt: not a PDF"; sleep 10; continue; }
+            PAGES=$(python3 -c "
+          import fitz
+          try: print(fitz.open('source.pdf').page_count)
+          except Exception: print(0)
+          " 2>/dev/null || echo 0)
+            if [ "${PAGES:-0}" -gt 0 ]; then echo "$(stat -c%s source.pdf) bytes, $PAGES page(s)"; break; fi
+            echo "attempt $attempt: truncated — PyMuPDF counts 0 pages"; sleep 10
+          done
+          [ "${PAGES:-0}" -gt 0 ] || { echo "::error::No readable PDF after 3 attempts."; exit 1; }
+
+      - name: Vision OCR
+        env:
+          VISION_API_KEY: ${{ secrets.VISION_API_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p "data/ocr_staging/${{ inputs.work_slug }}"
+          python3 tools/vision_ocr_pages.py --pdf source.pdf \
+            --start "${{ inputs.start_page }}" --end "${{ inputs.end_page }}" \
+            --dpi "${{ inputs.dpi }}" --lang "${{ inputs.lang_hints }}" \
+            --out "data/ocr_staging/${{ inputs.work_slug }}/vision_pages_${{ inputs.start_page }}-${{ inputs.end_page }}.json"
+
+      - name: Push the staged text into the private repo
+        env:
+          T: ${{ secrets.SHRIBUDDHI_TOKEN }}
+          SLUG: ${{ inputs.work_slug }}
+        run: |
+          set -euo pipefail
+          BR="ocr-staging/$SLUG"
+          STAGED="$RUNNER_TEMP/staged"; mkdir -p "$STAGED"
+          cp -r "data/ocr_staging/$SLUG/." "$STAGED/"
+          cp tools/build_ocr_staging_index.py "$RUNNER_TEMP/idx.py"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git clone -q --depth 1 "https://x-access-token:$T@github.com/Tribhuvanachar/ShriBuddhi.git" "$RUNNER_TEMP/priv"
+          cd "$RUNNER_TEMP/priv"
+          PUSHED=""
+          for attempt in 1 2 3 4 5; do
+            if git fetch -q origin "$BR"; then git checkout -q -B "$BR" FETCH_HEAD; else git checkout -q -B "$BR"; fi
+            mkdir -p "data/ocr_staging/$SLUG"
+            cp -r "$STAGED/." "data/ocr_staging/$SLUG/"
+            python3 "$RUNNER_TEMP/idx.py" || true
+            git add "data/ocr_staging/$SLUG" data/ocr_staging/index.json 2>/dev/null || git add "data/ocr_staging/$SLUG"
+            git commit -q -m "ocr: Vision pages ${{ inputs.start_page }}-${{ inputs.end_page }} for $SLUG" || true
+            if git push -q origin "HEAD:$BR" 2>/dev/null; then PUSHED=1; break; fi
+            echo "attempt $attempt: push rejected, retrying onto the new tip"
+            sleep $((attempt * 5))
+          done
+          [ -n "$PUSHED" ] || { echo "::error::Could not push after 5 attempts. The OCR is done and BILLED."; exit 1; }
+          echo "Staged to ShriBuddhi \`$BR\`" >> "$GITHUB_STEP_SUMMARY"
