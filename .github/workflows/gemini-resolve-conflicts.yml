@@ -114,7 +114,12 @@ jobs:
           if-no-files-found: ignore
 
       - name: Push the resolved pages back to the private repo
-        if: ${{ inputs.mode == 'real-run' }}
+        # always(), not success(). The pages already resolved were BILLED, and
+        # a later call timing out is no reason to throw them away -- which is
+        # exactly what happened on 19 Sep 2026, when a read timeout at call 34
+        # skipped this step and left Rs6.19 of finished work reachable only
+        # through the run artifact.
+        if: ${{ always() && inputs.mode == 'real-run' }}
         env:
           T: ${{ secrets.SHRIBUDDHI_TOKEN }}
         run: |
