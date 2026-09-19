@@ -1,0 +1,140 @@
+name: Gemini — resolve OCR conflicts (budget capped)
+
+# Adjudicates ONLY the pages where Sarvam and Vision disagree (7.3% of the
+# corpus; the other 92.7% are settled by the two engines agreeing, and cost
+# nothing). Reads both engines' staged output from the PRIVATE repo's
+# ocr-staging/<work> branch, resolves the conflicts, pushes the result back.
+#
+# WHY THIS RUNS HERE. Actions is free and unlimited on a public repository and
+# capped at 2,000 minutes a month on a private one. Nothing sensitive is
+# committed here: the text arrives from the private repo and leaves for it.
+#
+# COSTS MONEY. The budget is enforced by tools/gemini_resolve_conflicts.py,
+# which totals what Gemini itself reports after every single call and stops
+# before the call that would go over. It is not a warning; it is a stop.
+
+on:
+  workflow_dispatch:
+    inputs:
+      works:
+        description: "Space-separated work slugs (ocr-staging/<slug> branches in ShriBuddhi)"
+        required: true
+        type: string
+      budget_inr:
+        description: "Hard rupee cap for THIS run. The script stops before exceeding it."
+        required: true
+        type: string
+      model:
+        description: "Cheaper models first; escalate only the hardest pages"
+        type: choice
+        options: [gemini-2.5-flash, gemini-2.5-flash-lite, gemini-flash-latest]
+        default: gemini-2.5-flash
+      max_ratio:
+        description: "Only pages BELOW this similarity. 0.92 = all conflicts; 0.50 = only the hardest"
+        type: string
+        default: "0.92"
+      mode:
+        description: "dry-run counts the pages and spends nothing"
+        type: choice
+        options: [dry-run, real-run]
+        default: dry-run
+
+concurrency:
+  # Per work-set and budget, so two different chunks never cancel each other
+  # while one waits — a cancelled run here is paid work thrown away.
+  group: gemini-resolve-${{ inputs.works }}-${{ inputs.budget_inr }}
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: tools }
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - name: Check the private repo is reachable before spending anything
+        if: ${{ inputs.mode == 'real-run' }}
+        env:
+          T: ${{ secrets.SHRIBUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$T" || { echo "::error::SHRIBUDDHI_TOKEN is not set."; exit 1; }
+          CODE=$(curl -sS -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $T" \
+            https://api.github.com/repos/Tribhuvanachar/ShriBuddhi)
+          [ "$CODE" = "200" ] || { echo "::error::SHRIBUDDHI_TOKEN cannot read ShriBuddhi (HTTP $CODE)"; exit 1; }
+          test -n "${{ secrets.GEMINI_API_KEY }}" || { echo "::error::GEMINI_API_KEY is not set."; exit 1; }
+          echo "private repo reachable, Gemini key present"
+
+      - name: Resolve
+        env:
+          GEMINI_API_KEY: ${{ inputs.mode == 'dry-run' && '' || secrets.GEMINI_API_KEY }}
+          T: ${{ secrets.SHRIBUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          WORK_DIR="$RUNNER_TEMP/priv"
+          git clone -q --depth 1 --no-checkout \
+            "https://x-access-token:$T@github.com/Tribhuvanachar/ShriBuddhi.git" "$WORK_DIR"
+          CONF=""
+          for W in ${{ inputs.works }}; do
+            ( cd "$WORK_DIR"
+              git fetch -q --depth 1 origin "ocr-staging/$W"
+              git checkout -q FETCH_HEAD -- "data/ocr_staging/$W" )
+            # Regenerate conflicts from the branch itself rather than trusting a
+            # committed copy: the detector was wrong until 18 Sep 2026 and any
+            # conflicts file older than that overstates the work by ~5x.
+            python3 tools/ocr_conflicts.py --work "$WORK_DIR/data/ocr_staging/$W" \
+              --out "$RUNNER_TEMP/conflicts_$W.json"
+            CONF="$CONF $RUNNER_TEMP/conflicts_$W.json"
+          done
+          EXTRA=""
+          [ "${{ inputs.mode }}" = "dry-run" ] && EXTRA="--dry-run"
+          python3 tools/gemini_resolve_conflicts.py \
+            --conflicts $CONF \
+            --out "$RUNNER_TEMP/resolved.json" \
+            --budget-inr "${{ inputs.budget_inr }}" \
+            --model "${{ inputs.model }}" \
+            --max-ratio "${{ inputs.max_ratio }}" \
+            $EXTRA | tee "$RUNNER_TEMP/run.log"
+          {
+            echo "## Gemini conflict resolution"
+            echo '```'
+            cat "$RUNNER_TEMP/run.log"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep the result as an artifact
+        if: ${{ always() && inputs.mode == 'real-run' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: gemini-resolved
+          path: ${{ runner.temp }}/resolved.json
+          if-no-files-found: ignore
+
+      - name: Push the resolved pages back to the private repo
+        if: ${{ inputs.mode == 'real-run' }}
+        env:
+          T: ${{ secrets.SHRIBUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -f "$RUNNER_TEMP/resolved.json" || { echo "nothing to push"; exit 0; }
+          D="$RUNNER_TEMP/push"
+          git clone -q --depth 1 --branch main \
+            "https://x-access-token:$T@github.com/Tribhuvanachar/ShriBuddhi.git" "$D"
+          cd "$D"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p data/ocr_staging/_gemini
+          STAMP=$(date -u +%Y%m%dT%H%M%SZ)
+          cp "$RUNNER_TEMP/resolved.json" "data/ocr_staging/_gemini/resolved_$STAMP.json"
+          git add "data/ocr_staging/_gemini/resolved_$STAMP.json"
+          git commit -q -m "gemini: resolve OCR conflicts (${{ inputs.works }}, budget Rs${{ inputs.budget_inr }})"
+          for a in 1 2 3 4 5; do
+            git fetch -q origin main && git rebase -q origin/main || true
+            if git push -q origin HEAD:main 2>/dev/null; then echo pushed; exit 0; fi
+            echo "attempt $a: push rejected, retrying"; sleep $((a*5))
+          done
+          echo "::error::Could not push. The work is DONE and BILLED; it is in the run artifact."
+          exit 1
