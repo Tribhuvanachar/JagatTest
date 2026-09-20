@@ -75,12 +75,28 @@ jobs:
         run: |
           set -euo pipefail
           WORK_DIR="$RUNNER_TEMP/priv"
-          git clone -q --depth 1 --no-checkout \
+          # A PARTIAL clone, not a shallow one. Run 10 (19 Sep 2026) died here
+          # with "fatal: shallow file has changed since we read it" after
+          # computing conflicts for four works: the loop below fetches once per
+          # work into this same clone, every --depth fetch rewrites .git/shallow,
+          # and something else pushing to ShriBuddhi at the time is enough to
+          # make git find that file changed under it. It had called Gemini zero
+          # times, so nothing was billed -- but nothing was produced either, and
+          # the run reported "DONE and BILLED" because that is what the push
+          # step's error text says whatever went wrong before it.
+          #
+          # --filter=blob:none keeps the clone small the same way --depth does,
+          # without a .git/shallow to race on. Blobs arrive on demand, which for
+          # a checkout of one directory is the same handful of objects.
+          git clone -q --filter=blob:none --no-checkout \
             "https://x-access-token:$T@github.com/Tribhuvanachar/ShriBuddhi.git" "$WORK_DIR"
           CONF=""
           for W in ${{ inputs.works }}; do
             ( cd "$WORK_DIR"
-              git fetch -q --depth 1 origin "ocr-staging/$W"
+              for a in 1 2 3; do
+                git fetch -q --no-tags origin "ocr-staging/$W" && break
+                echo "fetch of ocr-staging/$W failed (attempt $a), retrying"; sleep $((a*5))
+              done
               git checkout -q FETCH_HEAD -- "data/ocr_staging/$W" )
             # Regenerate conflicts from the branch itself rather than trusting a
             # committed copy: the detector was wrong until 18 Sep 2026 and any
@@ -141,5 +157,5 @@ jobs:
             if git push -q origin HEAD:main 2>/dev/null; then echo pushed; exit 0; fi
             echo "attempt $a: push rejected, retrying"; sleep $((a*5))
           done
-          echo "::error::Could not push. The work is DONE and BILLED; it is in the run artifact."
+          echo "::error::Could not push. If resolved.json exists the work is DONE and BILLED and is in the run artifact; if the log says \"nothing to push\" it failed earlier and nothing was spent."
           exit 1
