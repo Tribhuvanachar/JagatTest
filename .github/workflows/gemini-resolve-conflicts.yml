@@ -90,6 +90,21 @@ jobs:
           # a checkout of one directory is the same handful of objects.
           git clone -q --filter=blob:none --no-checkout \
             "https://x-access-token:$T@github.com/Tribhuvanachar/ShriBuddhi.git" "$WORK_DIR"
+          # What earlier runs already bought. --out is a fresh temp file every
+          # dispatch, so without this `done` starts empty and the run re-sends
+          # and re-pays for every conflict in the works it names. Measured on
+          # the HKS set: 500 pages without it, 17 with.
+          ( cd "$WORK_DIR"
+            for a in 1 2 3; do
+              git fetch -q --no-tags origin main && break
+              echo "fetch of main failed (attempt $a), retrying"; sleep $((a*5))
+            done
+            git checkout -q FETCH_HEAD -- "data/ocr_staging/_gemini" 2>/dev/null || true )
+          ALREADY=""
+          if ls "$WORK_DIR"/data/ocr_staging/_gemini/resolved_*.json >/dev/null 2>&1; then
+            ALREADY="--already $WORK_DIR/data/ocr_staging/_gemini/resolved_*.json"
+            echo "seeding from $(ls "$WORK_DIR"/data/ocr_staging/_gemini/resolved_*.json | wc -l) earlier result file(s)"
+          fi
           CONF=""
           for W in ${{ inputs.works }}; do
             ( cd "$WORK_DIR"
@@ -110,6 +125,7 @@ jobs:
           python3 tools/gemini_resolve_conflicts.py \
             --conflicts $CONF \
             --out "$RUNNER_TEMP/resolved.json" \
+            $ALREADY \
             --budget-inr "${{ inputs.budget_inr }}" \
             --model "${{ inputs.model }}" \
             --max-ratio "${{ inputs.max_ratio }}" \
