@@ -230,7 +230,7 @@
     },
     {
       "path": "data/agama/vaishnava_agama/pancharatra/pancharatra_samhitas/anya_samhitas/naradiya_samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Naradiya Samhita",
       "addedAt": "2026-08-25",
       "facets": {
@@ -247,7 +247,7 @@
     },
     {
       "path": "data/agama/vaishnava_agama/pancharatra/pancharatra_samhitas/anya_samhitas/parashara_samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Parashara Samhita",
       "addedAt": "2026-08-25",
       "facets": {
@@ -264,7 +264,7 @@
     },
     {
       "path": "data/agama/vaishnava_agama/pancharatra/pancharatra_samhitas/anya_samhitas/vasishtha_samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vasishtha Samhita",
       "addedAt": "2026-08-25",
       "facets": {
@@ -298,7 +298,7 @@
     },
     {
       "path": "data/agama/vaishnava_agama/pancharatra/pancharatra_samhitas/pramukha_samhitas/hayagriva_samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Hayagriva Samhita",
       "addedAt": "2026-08-25",
       "facets": {
@@ -315,7 +315,7 @@
     },
     {
       "path": "data/agama/vaishnava_agama/pancharatra/pancharatra_samhitas/pramukha_samhitas/ishvara_samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Ishvara Samhita",
       "addedAt": "2026-08-25",
       "facets": {
@@ -366,7 +366,7 @@
     },
     {
       "path": "data/agama/vaishnava_agama/pancharatra/pancharatra_samhitas/pramukha_samhitas/parama_samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Parama Samhita",
       "addedAt": "2026-08-25",
       "facets": {
@@ -488,7 +488,7 @@
     },
     {
       "path": "data/agama/vaishnava_agama/vaikhanasa_agama/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vaikhanasa Agama",
       "addedAt": "2026-08-25",
       "facets": {
@@ -505,7 +505,7 @@
     },
     {
       "path": "data/darshana/mimamsa/bhatta/shlokavarttika/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "श्लोकवार्त्तिकम्",
       "facets": {
         "default_author": "कुमारिलभट्टः"
@@ -513,7 +513,7 @@
     },
     {
       "path": "data/darshana/mimamsa/bhatta/shlokavarttika/tika_kashika/data.json",
-      "populated": true,
+      "populated": false,
       "title": "श्लोकवार्त्तिकम् — काशिका",
       "facets": {
         "default_author": "सुचरितमिश्रः"
@@ -521,7 +521,7 @@
     },
     {
       "path": "data/darshana/mimamsa/bhatta/shlokavarttika/tika_nyayaratnakara/data.json",
-      "populated": true,
+      "populated": false,
       "title": "श्लोकवार्त्तिकम् — न्यायरत्नाकरः",
       "facets": {
         "default_author": "पार्थसारथिमिश्रः"
@@ -529,7 +529,7 @@
     },
     {
       "path": "data/darshana/mimamsa/bhatta/shlokavarttika/tika_nyayasudha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "श्लोकवार्त्तिकम् — न्यायसुधा",
       "facets": {
         "default_author": "सोमेश्वरभट्टः"
@@ -537,7 +537,7 @@
     },
     {
       "path": "data/darshana/mimamsa/bhatta/tantravarttika/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तन्त्रवार्त्तिकम्",
       "facets": {
         "default_author": "कुमारिलभट्टः"
@@ -545,7 +545,7 @@
     },
     {
       "path": "data/darshana/mimamsa/bhatta/tuptika/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "टुप्टीका",
       "facets": {
         "default_author": "कुमारिलभट्टः"
@@ -553,7 +553,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prabhakara/brihati/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "बृहती",
       "facets": {
         "default_author": "प्रभाकरमिश्रः"
@@ -561,7 +561,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prabhakara/brihati/tika_dipashikha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "बृहती — दीपशिखा",
       "facets": {
         "default_author": "शालिकनाथमिश्रः"
@@ -569,7 +569,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prabhakara/brihati/tika_rijuvimala/data.json",
-      "populated": true,
+      "populated": false,
       "title": "बृहती — ऋजुविमला",
       "facets": {
         "default_author": "शालिकनाथमिश्रः"
@@ -577,7 +577,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prabhakara/prakarana_panchika/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "प्रकरणपञ्चिका",
       "facets": {
         "default_author": "शालिकनाथमिश्रः"
@@ -585,7 +585,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prakarana/arthasangraha/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "अर्थसङ्ग्रहः",
       "facets": {
         "default_author": "लौगाक्षिभास्करः"
@@ -593,7 +593,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prakarana/bhatta_dipika/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "भाट्टदीपिका",
       "facets": {
         "default_author": "खण्डदेवः"
@@ -601,7 +601,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prakarana/bhatta_rahasya/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "भाट्टरहस्यम्",
       "facets": {
         "default_author": "खण्डदेवः"
@@ -609,7 +609,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prakarana/jaiminiya_nyayamala/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "जैमिनीयन्यायमालाविस्तरः",
       "facets": {
         "default_author": "माधवाचार्यः"
@@ -617,7 +617,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prakarana/mimamsa_nyaya_prakasha/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "मीमांसान्यायप्रकाशः",
       "facets": {
         "default_author": "आपदेवः"
@@ -625,7 +625,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prakarana/mimamsa_paribhasha/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "मीमांसापरिभाषा — mula",
       "facets": {
         "default_author": "कृष्णयज्वा"
@@ -633,7 +633,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prakarana/nyaya_ratnamala/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "न्यायरत्नमाला",
       "facets": {
         "default_author": "पार्थसारथिमिश्रः"
@@ -641,7 +641,7 @@
     },
     {
       "path": "data/darshana/mimamsa/prakarana/shastra_dipika/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "शास्त्रदीपिका",
       "facets": {
         "default_author": "पार्थसारथिमिश्रः"
@@ -649,7 +649,7 @@
     },
     {
       "path": "data/darshana/mimamsa/sutra_and_bhashya/mimamsa_sutra/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "मीमांसासूत्राणि",
       "facets": {
         "default_author": "जैमिनिः"
@@ -665,7 +665,7 @@
     },
     {
       "path": "data/darshana/nyaya/bhasha_pariccheda/karikavali/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "कारिकावली",
       "facets": {
         "default_author": "विश्वनाथन्यायपञ्चाननः"
@@ -673,7 +673,7 @@
     },
     {
       "path": "data/darshana/nyaya/bhasha_pariccheda/karikavali/tika_dinakari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "कारिकावली — दिनकरी",
       "facets": {
         "default_author": "दिनकरभट्टः"
@@ -681,7 +681,7 @@
     },
     {
       "path": "data/darshana/nyaya/bhasha_pariccheda/karikavali/tika_kiranavali/data.json",
-      "populated": true,
+      "populated": false,
       "title": "कारिकावली — किरणावली",
       "facets": {
         "default_author": "कृष्णवल्लभाचार्यः"
@@ -689,7 +689,7 @@
     },
     {
       "path": "data/darshana/nyaya/bhasha_pariccheda/karikavali/tika_ramarudri/data.json",
-      "populated": true,
+      "populated": false,
       "title": "कारिकावली — तरङ्गिणी",
       "facets": {
         "default_author": "रामरुद्रभट्टाचार्यः"
@@ -697,7 +697,7 @@
     },
     {
       "path": "data/darshana/nyaya/bhasha_pariccheda/karikavali/tika_siddhanta_muktavali/data.json",
-      "populated": true,
+      "populated": false,
       "title": "कारिकावली — सिद्धान्तमुक्तावली",
       "facets": {
         "default_author": "विश्वनाथन्यायपञ्चाननः"
@@ -705,7 +705,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/badhanta/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "बाधान्तः",
       "facets": {
         "default_author": "रुचिदत्तः"
@@ -713,7 +713,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/shaktivada/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "शक्तिवादः",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -721,7 +721,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/aloka/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — आलोकः",
       "facets": {
         "default_author": "जयदेवपक्षधरमिश्रः"
@@ -729,7 +729,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -737,7 +737,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -745,7 +745,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/jagadishi/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — जागदीशी",
       "facets": {
         "default_author": "जगदीशतर्कालङ्कारः"
@@ -753,7 +753,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/mathuri/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — माथुरी",
       "facets": {
         "default_author": "मथुरानाथतर्कवागीशः"
@@ -761,7 +761,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -769,7 +769,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avacchedakata_nirukti/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — अवच्छेदकतानिरुक्तिः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -777,7 +777,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avacchedakata_nirukti/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — अवच्छेदकतानिरुक्तिः — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -785,7 +785,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avacchedakata_nirukti/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — अवच्छेदकतानिरुक्तिः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -793,7 +793,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avayava/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — अवयवः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -801,7 +801,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avayava/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — अवयवः — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -809,7 +809,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avayava/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — अवयवः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -817,7 +817,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/badha/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — बाधः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -825,7 +825,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/badha/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — बाधः — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -833,7 +833,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/badha/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — बाधः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -841,7 +841,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/badha_vibhajaka/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — बाधविभाजकः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -849,7 +849,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/badha_vibhajaka/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — बाधविभाजकः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -857,7 +857,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/chaturdashalakshani/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — चतुर्दशलक्षणी — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -865,7 +865,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/chaturdashalakshani/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — चतुर्दशलक्षणी — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -873,7 +873,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/chaturdashalakshani/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — चतुर्दशलक्षणी — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -881,7 +881,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/pakshata/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — पक्षता — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -889,7 +889,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/pakshata/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — पक्षता — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -897,7 +897,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/pakshata/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — पक्षता — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -905,7 +905,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/panchalakshani/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — पञ्चलक्षणी — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -913,7 +913,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/panchalakshani/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — पञ्चलक्षणी — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -921,7 +921,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/panchalakshani/jagadishi/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — पञ्चलक्षणी — जागदीशी",
       "facets": {
         "default_author": "जगदीशतर्कालङ्कारः"
@@ -929,7 +929,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/panchalakshani/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — पञ्चलक्षणी — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -937,7 +937,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/samanya_nirukti/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सामान्यनिरुक्तिः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -945,7 +945,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/samanya_nirukti/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सामान्यनिरुक्तिः — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -953,7 +953,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/samanya_nirukti/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सामान्यनिरुक्तिः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -961,7 +961,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/satpratipaksha/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सत्प्रतिपक्षः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -969,7 +969,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/satpratipaksha/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सत्प्रतिपक्षः — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -977,7 +977,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/satpratipaksha/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सत्प्रतिपक्षः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -985,7 +985,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/savyabhichara/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सव्यभिचारः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -993,7 +993,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/savyabhichara/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सव्यभिचारः — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -1001,7 +1001,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/savyabhichara/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सव्यभिचारः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -1009,7 +1009,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/siddhanta_lakshana/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सिद्धान्तलक्षणम् — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -1017,7 +1017,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/siddhanta_lakshana/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सिद्धान्तलक्षणम् — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -1025,7 +1025,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/siddhanta_lakshana/jagadishi/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सिद्धान्तलक्षणम् — जागदीशी",
       "facets": {
         "default_author": "जगदीशतर्कालङ्कारः"
@@ -1033,7 +1033,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/siddhanta_lakshana/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — सिद्धान्तलक्षणम् — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -1041,7 +1041,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyadhikarana/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — व्यधिकरणम् — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -1049,7 +1049,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyadhikarana/jagadishi/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — व्यधिकरणम् — जागदीशी",
       "facets": {
         "default_author": "जगदीशतर्कालङ्कारः"
@@ -1057,7 +1057,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyadhikarana/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — व्यधिकरणम् — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -1065,7 +1065,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyaptyanugama/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — व्याप्त्यनुगमः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -1073,7 +1073,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyaptyanugama/jagadishi/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — व्याप्त्यनुगमः — जागदीशी",
       "facets": {
         "default_author": "जगदीशतर्कालङ्कारः"
@@ -1081,7 +1081,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyaptyanugama/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — व्याप्त्यनुगमः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -1089,7 +1089,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/pratyaksha_khanda/aloka/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — आलोकः",
       "facets": {
         "default_author": "जयदेवपक्षधरमिश्रः"
@@ -1097,7 +1097,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/pratyaksha_khanda/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -1105,7 +1105,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/pratyaksha_khanda/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -1113,7 +1113,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/pratyaksha_khanda/jagadishi/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — जागदीशी",
       "facets": {
         "default_author": "जगदीशतर्कालङ्कारः"
@@ -1121,7 +1121,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/pratyaksha_khanda/mathuri/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — माथुरी",
       "facets": {
         "default_author": "मथुरानाथतर्कवागीशः"
@@ -1129,7 +1129,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/pratyaksha_khanda/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -1137,7 +1137,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/shabda_khanda/aloka/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — आलोकः",
       "facets": {
         "default_author": "जयदेवपक्षधरमिश्रः"
@@ -1145,7 +1145,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/shabda_khanda/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -1153,7 +1153,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/shabda_khanda/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -1161,7 +1161,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/shabda_khanda/jagadishi/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — जागदीशी",
       "facets": {
         "default_author": "जगदीशतर्कालङ्कारः"
@@ -1169,7 +1169,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/shabda_khanda/mathuri/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — माथुरी",
       "facets": {
         "default_author": "मथुरानाथतर्कवागीशः"
@@ -1177,7 +1177,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/shabda_khanda/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -1185,7 +1185,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/upamana_khanda/aloka/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — आलोकः",
       "facets": {
         "default_author": "जयदेवपक्षधरमिश्रः"
@@ -1193,7 +1193,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/upamana_khanda/didhiti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — दीधितिः",
       "facets": {
         "default_author": "रघुनाथशिरोमणिः"
@@ -1201,7 +1201,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/upamana_khanda/gadadhari/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — गादाधरी",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -1209,7 +1209,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/upamana_khanda/jagadishi/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — जागदीशी",
       "facets": {
         "default_author": "जगदीशतर्कालङ्कारः"
@@ -1217,7 +1217,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/upamana_khanda/mathuri/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — माथुरी",
       "facets": {
         "default_author": "मथुरानाथतर्कवागीशः"
@@ -1225,7 +1225,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/tattvacintamani/upamana_khanda/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तत्त्वचिन्तामणिः — मूलम्",
       "facets": {
         "default_author": "गङ्गेशोपाध्यायः"
@@ -1233,7 +1233,7 @@
     },
     {
       "path": "data/darshana/nyaya/navya_nyaya/vyutpattivada/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "व्युत्पत्तिवादः",
       "facets": {
         "default_author": "गदाधरभट्टाचार्यः"
@@ -1241,7 +1241,7 @@
     },
     {
       "path": "data/darshana/nyaya/prachina_nyaya/nyaya_bhushana/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "न्यायभूषणम्",
       "facets": {
         "default_author": "भासर्वज्ञः"
@@ -1249,7 +1249,7 @@
     },
     {
       "path": "data/darshana/nyaya/prachina_nyaya/nyaya_manjari/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "न्यायमञ्जरी",
       "facets": {
         "default_author": "जयन्तभट्टः"
@@ -1273,7 +1273,7 @@
     },
     {
       "path": "data/darshana/nyaya/prachina_nyaya/nyaya_sutra/tatparya_parishuddhi/data.json",
-      "populated": true,
+      "populated": false,
       "title": "न्यायसूत्राणि — न्यायवार्त्तिकतात्पर्यपरिशुद्धिः",
       "facets": {
         "default_author": "उदयनाचार्यः"
@@ -1281,7 +1281,7 @@
     },
     {
       "path": "data/darshana/nyaya/prachina_nyaya/nyaya_sutra/tatparya_tika/data.json",
-      "populated": true,
+      "populated": false,
       "title": "न्यायसूत्राणि — न्यायवार्त्तिकतात्पर्यटीका",
       "facets": {
         "default_author": "वाचस्पतिमिश्रः"
@@ -1289,7 +1289,7 @@
     },
     {
       "path": "data/darshana/nyaya/prachina_nyaya/nyaya_sutra/varttika_uddyotakara/data.json",
-      "populated": true,
+      "populated": false,
       "title": "न्यायसूत्राणि — न्यायवार्त्तिकम्",
       "facets": {
         "default_author": "उद्द्योतकरः"
@@ -1297,7 +1297,7 @@
     },
     {
       "path": "data/darshana/nyaya/prakarana/tarkabhasha/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तर्कभाषा",
       "facets": {
         "default_author": "केशवमिश्रः"
@@ -1313,7 +1313,7 @@
     },
     {
       "path": "data/darshana/nyaya/prakarana/tarkasangraha/tika_bhaskarodaya/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तर्कसङ्ग्रहः — भास्करोदयः",
       "facets": {
         "default_author": "लक्ष्मीनृसिंहः"
@@ -1329,7 +1329,7 @@
     },
     {
       "path": "data/darshana/nyaya/prakarana/tarkasangraha/tika_nilakanthi/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तर्कसङ्ग्रहः — नीलकण्ठी",
       "facets": {
         "default_author": "नीलकण्ठभट्टः"
@@ -1337,7 +1337,7 @@
     },
     {
       "path": "data/darshana/nyaya/prakarana/tarkasangraha/tika_nyayabodhini/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तर्कसङ्ग्रहः — न्यायबोधिनी",
       "facets": {
         "default_author": "गोवर्धनमिश्रः"
@@ -1345,7 +1345,7 @@
     },
     {
       "path": "data/darshana/nyaya/prakarana/tarkasangraha/tika_padakritya/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तर्कसङ्ग्रहः — पदकृत्यम्",
       "facets": {
         "default_author": "चन्द्रजसिंहः"
@@ -1353,7 +1353,7 @@
     },
     {
       "path": "data/darshana/nyaya/prakarana/tarkasangraha/tika_sarvasva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "तर्कसङ्ग्रहः — तर्कसङ्ग्रहसर्वस्वम्",
       "facets": {
         "default_author": "रामब्रह्मशास्त्री"
@@ -1361,7 +1361,7 @@
     },
     {
       "path": "data/darshana/nyaya/pramukha_prakarana/nyaya_kusumanjali/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "न्यायकुसुमाञ्जलिः",
       "facets": {
         "default_author": "उदयनाचार्यः"
@@ -1369,7 +1369,7 @@
     },
     {
       "path": "data/darshana/nyaya/pramukha_prakarana/nyaya_kusumanjali/tika_bodhini/data.json",
-      "populated": true,
+      "populated": false,
       "title": "न्यायकुसुमाञ्जलिः — बोधिनी",
       "facets": {
         "default_author": "वरदराजः"
@@ -1377,7 +1377,7 @@
     },
     {
       "path": "data/darshana/nyaya/pramukha_prakarana/nyaya_kusumanjali/tika_makaranda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "न्यायकुसुमाञ्जलिः — मकरन्दः",
       "facets": {
         "default_author": "रुचिदत्तः"
@@ -1385,7 +1385,7 @@
     },
     {
       "path": "data/darshana/nyaya/pramukha_prakarana/nyaya_kusumanjali/tika_prakasha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "न्यायकुसुमाञ्जलिः — प्रकाशः",
       "facets": {
         "default_author": "वर्धमानोपाध्यायः"
@@ -1425,7 +1425,7 @@
     },
     {
       "path": "data/darshana/vaisheshika/sutra_and_bhashya/prashastapada_bhashya/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "प्रशस्तपादभाष्यम्",
       "facets": {
         "default_author": "प्रशस्तपादाचार्यः"
@@ -1433,7 +1433,7 @@
     },
     {
       "path": "data/darshana/vaisheshika/sutra_and_bhashya/prashastapada_bhashya/tika_kiranavali/data.json",
-      "populated": true,
+      "populated": false,
       "title": "प्रशस्तपादभाष्यम् — किरणावली",
       "facets": {
         "default_author": "उदयनाचार्यः"
@@ -9678,7 +9678,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/adi_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Adi Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9702,7 +9702,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/anushasana_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Anushasana Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9718,7 +9718,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/ashramavasika_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Ashramavasika Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9742,7 +9742,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/ashvamedhika_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Ashvamedhika Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9766,7 +9766,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/bhishma_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Bhishma Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9790,7 +9790,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/drona_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Drona Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9814,7 +9814,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/harivamsha_khila/bhavishya_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Bhavishya Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9822,7 +9822,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/harivamsha_khila/harivamsha_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Harivamsha Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9830,7 +9830,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/harivamsha_khila/vishnu_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vishnu Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9838,7 +9838,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/karna_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Karna Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9862,7 +9862,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/mahaprasthanika_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Mahaprasthanika Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9886,7 +9886,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/mausala_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Mausala Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9910,7 +9910,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/sabha_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Sabha Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9934,7 +9934,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/sauptika_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Sauptika Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9958,7 +9958,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/shalya_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shalya Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9982,7 +9982,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/shanti_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shanti Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -9998,7 +9998,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/stri_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Stri Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -10022,7 +10022,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/svargarohana_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Svargarohana Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -10046,7 +10046,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/udyoga_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Udyoga Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -10070,7 +10070,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/vana_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vana Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -10094,7 +10094,7 @@
     },
     {
       "path": "data/itihasa/mahabharata/virata_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Virata Parva",
       "facets": {
         "default_author": "Maharshi Veda Vyasa"
@@ -10262,7 +10262,7 @@
     },
     {
       "path": "data/itihasa/ramayana/aranya_kanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Aranya Kanda",
       "facets": {
         "default_author": "Maharshi Valmiki"
@@ -10286,7 +10286,7 @@
     },
     {
       "path": "data/itihasa/ramayana/ayodhya_kanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Ayodhya Kanda",
       "facets": {
         "default_author": "Maharshi Valmiki"
@@ -10310,7 +10310,7 @@
     },
     {
       "path": "data/itihasa/ramayana/bala_kanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Bala Kanda",
       "facets": {
         "default_author": "Maharshi Valmiki"
@@ -10334,7 +10334,7 @@
     },
     {
       "path": "data/itihasa/ramayana/kishkindha_kanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kishkindha Kanda",
       "facets": {
         "default_author": "Maharshi Valmiki"
@@ -10358,7 +10358,7 @@
     },
     {
       "path": "data/itihasa/ramayana/sundara_kanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Sundara Kanda",
       "facets": {
         "default_author": "Maharshi Valmiki"
@@ -10374,7 +10374,7 @@
     },
     {
       "path": "data/itihasa/ramayana/uttara_kanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Uttara Kanda",
       "facets": {
         "default_author": "Maharshi Valmiki"
@@ -10390,7 +10390,7 @@
     },
     {
       "path": "data/itihasa/ramayana/yuddha_kanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Yuddha Kanda",
       "facets": {
         "default_author": "Maharshi Valmiki"
@@ -10851,7 +10851,7 @@
     },
     {
       "path": "data/purana/maha_purana/bhavishya_purana/brahma_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Brahma Parva",
       "addedAt": "2026-08-25",
       "facets": {
@@ -10862,7 +10862,7 @@
     },
     {
       "path": "data/purana/maha_purana/bhavishya_purana/madhyama_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Madhyama Parva",
       "addedAt": "2026-08-25",
       "facets": {
@@ -10873,7 +10873,7 @@
     },
     {
       "path": "data/purana/maha_purana/bhavishya_purana/pratisarga_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Pratisarga Parva",
       "addedAt": "2026-08-25",
       "facets": {
@@ -10884,7 +10884,7 @@
     },
     {
       "path": "data/purana/maha_purana/bhavishya_purana/uttara_parva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Uttara Parva",
       "addedAt": "2026-08-25",
       "facets": {
@@ -10906,7 +10906,7 @@
     },
     {
       "path": "data/purana/maha_purana/brahmanda_purana/adhyatma_ramayana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Adhyatma Ramayana",
       "addedAt": "2026-08-25",
       "facets": {
@@ -10917,7 +10917,7 @@
     },
     {
       "path": "data/purana/maha_purana/brahmanda_purana/lalitopakhyana_lalita_sahasranama/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Lalitopakhyana Lalita Sahasranama",
       "addedAt": "2026-08-25",
       "facets": {
@@ -10939,7 +10939,7 @@
     },
     {
       "path": "data/purana/maha_purana/brahmavaivarta_purana/brahma_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Brahma Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -10950,7 +10950,7 @@
     },
     {
       "path": "data/purana/maha_purana/brahmavaivarta_purana/ganesha_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Ganesha Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -10961,7 +10961,7 @@
     },
     {
       "path": "data/purana/maha_purana/brahmavaivarta_purana/krishna_janma_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Krishna Janma Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -10972,7 +10972,7 @@
     },
     {
       "path": "data/purana/maha_purana/brahmavaivarta_purana/prakriti_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Prakriti Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11093,7 +11093,7 @@
     },
     {
       "path": "data/purana/maha_purana/narada_purana/purvabhaga/pada_01/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Pada 01",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11104,7 +11104,7 @@
     },
     {
       "path": "data/purana/maha_purana/narada_purana/purvabhaga/pada_02/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Pada 02",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11115,7 +11115,7 @@
     },
     {
       "path": "data/purana/maha_purana/narada_purana/purvabhaga/pada_03/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Pada 03",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11126,7 +11126,7 @@
     },
     {
       "path": "data/purana/maha_purana/narada_purana/purvabhaga/pada_04/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Pada 04",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11159,7 +11159,7 @@
     },
     {
       "path": "data/purana/maha_purana/padma_purana/bhumi_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Bhumi Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11170,7 +11170,7 @@
     },
     {
       "path": "data/purana/maha_purana/padma_purana/kriya_yoga_sara_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kriya Yoga Sara Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11181,7 +11181,7 @@
     },
     {
       "path": "data/purana/maha_purana/padma_purana/patala_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Patala Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11192,7 +11192,7 @@
     },
     {
       "path": "data/purana/maha_purana/padma_purana/srishti_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Srishti Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11203,7 +11203,7 @@
     },
     {
       "path": "data/purana/maha_purana/padma_purana/svarga_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Svarga Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11214,7 +11214,7 @@
     },
     {
       "path": "data/purana/maha_purana/padma_purana/uttara_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Uttara Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11225,7 +11225,7 @@
     },
     {
       "path": "data/purana/maha_purana/shiva_purana/kailasa_samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kailasa Samhita",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11236,7 +11236,7 @@
     },
     {
       "path": "data/purana/maha_purana/shiva_purana/kotirudra_samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kotirudra Samhita",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11247,7 +11247,7 @@
     },
     {
       "path": "data/purana/maha_purana/shiva_purana/rudra_samhita/kumara_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kumara Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11258,7 +11258,7 @@
     },
     {
       "path": "data/purana/maha_purana/shiva_purana/rudra_samhita/parvati_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Parvati Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11269,7 +11269,7 @@
     },
     {
       "path": "data/purana/maha_purana/shiva_purana/rudra_samhita/sati_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Sati Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11280,7 +11280,7 @@
     },
     {
       "path": "data/purana/maha_purana/shiva_purana/rudra_samhita/srishti_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Srishti Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11291,7 +11291,7 @@
     },
     {
       "path": "data/purana/maha_purana/shiva_purana/rudra_samhita/yuddha_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Yuddha Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11302,7 +11302,7 @@
     },
     {
       "path": "data/purana/maha_purana/shiva_purana/shatarudra_samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shatarudra Samhita",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11313,7 +11313,7 @@
     },
     {
       "path": "data/purana/maha_purana/shiva_purana/uma_samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Uma Samhita",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11346,7 +11346,7 @@
     },
     {
       "path": "data/purana/maha_purana/skanda_purana/avantya_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Avantya Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11357,7 +11357,7 @@
     },
     {
       "path": "data/purana/maha_purana/skanda_purana/brahma_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Brahma Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11368,7 +11368,7 @@
     },
     {
       "path": "data/purana/maha_purana/skanda_purana/kashi_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kashi Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11379,7 +11379,7 @@
     },
     {
       "path": "data/purana/maha_purana/skanda_purana/maheshvara_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Maheshvara Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11390,7 +11390,7 @@
     },
     {
       "path": "data/purana/maha_purana/skanda_purana/nagara_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Nagara Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11401,7 +11401,7 @@
     },
     {
       "path": "data/purana/maha_purana/skanda_purana/prabhasa_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Prabhasa Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11423,7 +11423,7 @@
     },
     {
       "path": "data/purana/maha_purana/skanda_purana/vaishnava_khanda/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vaishnava Khanda",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11467,7 +11467,7 @@
     },
     {
       "path": "data/purana/maha_purana/vayu_purana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vayu Purana",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11543,7 +11543,7 @@
     },
     {
       "path": "data/purana/upa_purana/adi_purana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Adi Purana",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11553,7 +11553,7 @@
     },
     {
       "path": "data/purana/upa_purana/brihannaradiya_purana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Brihannaradiya Purana",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11563,7 +11563,7 @@
     },
     {
       "path": "data/purana/upa_purana/devi_bhagavata_purana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Devi Bhagavata Purana",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11573,7 +11573,7 @@
     },
     {
       "path": "data/purana/upa_purana/ganesha_purana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Ganesha Purana",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11593,7 +11593,7 @@
     },
     {
       "path": "data/purana/upa_purana/nandi_purana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Nandi Purana",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11613,7 +11613,7 @@
     },
     {
       "path": "data/purana/upa_purana/sanatkumara_purana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Sanatkumara Purana",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11623,7 +11623,7 @@
     },
     {
       "path": "data/purana/upa_purana/saura_purana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Saura Purana",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11633,7 +11633,7 @@
     },
     {
       "path": "data/purana/upa_purana/vishnu_dharmottara_purana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vishnu Dharmottara Purana",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11870,7 +11870,7 @@
     },
     {
       "path": "data/shastra/niti_shastra/subhashita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Subhashita",
       "addedAt": "2026-08-25",
       "facets": {
@@ -11903,7 +11903,7 @@
     },
     {
       "path": "data/smriti_dharma/dharmashastra/chaturvarga_chintamani/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Chaturvarga Chintamani",
       "facets": {
         "default_author": "Hemadri (Hemadripant)"
@@ -11919,7 +11919,7 @@
     },
     {
       "path": "data/smriti_dharma/dharmashastra/dharma_sindhu/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Dharma Sindhu",
       "facets": {
         "default_author": "Kashinatha Upadhyaya (Kashinath Upadhyaya)"
@@ -11935,7 +11935,7 @@
     },
     {
       "path": "data/smriti_dharma/dharmashastra/kalpataru/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kalpataru",
       "facets": {
         "default_author": "Lakshmidhara"
@@ -11951,7 +11951,7 @@
     },
     {
       "path": "data/smriti_dharma/dharmashastra/nirnaya_sindhu/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Nirnaya Sindhu",
       "facets": {
         "default_author": "Kamalakara Bhatta"
@@ -11959,7 +11959,7 @@
     },
     {
       "path": "data/smriti_dharma/dharmashastra/smriti_chandrika/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Smriti Chandrika",
       "facets": {
         "default_author": "unspecified"
@@ -11967,7 +11967,7 @@
     },
     {
       "path": "data/smriti_dharma/smriti/angiras_smriti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Angiras Smriti",
       "facets": {
         "default_author": "Angiras"
@@ -11975,7 +11975,7 @@
     },
     {
       "path": "data/smriti_dharma/smriti/atri_smriti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Atri Smriti",
       "facets": {
         "default_author": "Atri"
@@ -11983,7 +11983,7 @@
     },
     {
       "path": "data/smriti_dharma/smriti/brihaspati_smriti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Brihaspati Smriti",
       "facets": {
         "default_author": "Brihaspati"
@@ -11999,7 +11999,7 @@
     },
     {
       "path": "data/smriti_dharma/smriti/harita_smriti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Harita Smriti",
       "facets": {
         "default_author": "Harita"
@@ -12015,7 +12015,7 @@
     },
     {
       "path": "data/smriti_dharma/smriti/likhita_smriti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Likhita Smriti",
       "facets": {
         "default_author": "Likhita"
@@ -12047,7 +12047,7 @@
     },
     {
       "path": "data/smriti_dharma/smriti/pracetas_smriti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Pracetas Smriti",
       "facets": {
         "default_author": "Pracetas"
@@ -12055,7 +12055,7 @@
     },
     {
       "path": "data/smriti_dharma/smriti/samvarta_smriti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Samvarta Smriti",
       "facets": {
         "default_author": "Samvarta"
@@ -12063,7 +12063,7 @@
     },
     {
       "path": "data/smriti_dharma/smriti/shankha_smriti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shankha Smriti",
       "facets": {
         "default_author": "Shankha"
@@ -12071,7 +12071,7 @@
     },
     {
       "path": "data/smriti_dharma/smriti/shatatapa_smriti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shatatapa Smriti",
       "facets": {
         "default_author": "Shatatapa"
@@ -12079,7 +12079,7 @@
     },
     {
       "path": "data/smriti_dharma/smriti/ushanas_smriti/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Ushanas Smriti",
       "facets": {
         "default_author": "Ushanas (Shukracharya)"
@@ -12471,7 +12471,7 @@
     },
     {
       "path": "data/upaveda/gandharvaveda/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Gandharvaveda",
       "addedAt": "2026-08-28",
       "facets": {
@@ -12480,7 +12480,7 @@
     },
     {
       "path": "data/upaveda/sthapatyaveda/mula/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Sthapatyaveda",
       "addedAt": "2026-08-28",
       "facets": {
@@ -12489,7 +12489,7 @@
     },
     {
       "path": "data/vedanga/chandas/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Chandas"
     },
     {
@@ -12567,7 +12567,7 @@
     },
     {
       "path": "data/vedanga/kalpa/krishna_yajurveda/apastamba/shulbasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shulbasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12599,7 +12599,7 @@
     },
     {
       "path": "data/vedanga/kalpa/krishna_yajurveda/baudhayana/shulbasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shulbasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12623,7 +12623,7 @@
     },
     {
       "path": "data/vedanga/kalpa/krishna_yajurveda/hiranyakeshin/dharmasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Dharmasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12639,7 +12639,7 @@
     },
     {
       "path": "data/vedanga/kalpa/krishna_yajurveda/hiranyakeshin/shrautasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shrautasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12655,7 +12655,7 @@
     },
     {
       "path": "data/vedanga/kalpa/krishna_yajurveda/manava/dharmasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Dharmasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12671,7 +12671,7 @@
     },
     {
       "path": "data/vedanga/kalpa/krishna_yajurveda/manava/shrautasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shrautasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12679,7 +12679,7 @@
     },
     {
       "path": "data/vedanga/kalpa/krishna_yajurveda/manava/shulbasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shulbasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12687,7 +12687,7 @@
     },
     {
       "path": "data/vedanga/kalpa/krishna_yajurveda/satyashadha/shrautasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shrautasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12695,7 +12695,7 @@
     },
     {
       "path": "data/vedanga/kalpa/krishna_yajurveda/vadhula/shrautasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shrautasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12727,7 +12727,7 @@
     },
     {
       "path": "data/vedanga/kalpa/krishna_yajurveda/varaha/shrautasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shrautasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12791,7 +12791,7 @@
     },
     {
       "path": "data/vedanga/kalpa/samaveda/jaiminiya/shrautasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shrautasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12799,7 +12799,7 @@
     },
     {
       "path": "data/vedanga/kalpa/samaveda/kauthuma/grihyasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Grihyasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12815,7 +12815,7 @@
     },
     {
       "path": "data/vedanga/kalpa/samaveda/latyayana/shrautasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shrautasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12831,7 +12831,7 @@
     },
     {
       "path": "data/vedanga/kalpa/shukla_yajurveda/katyayana/shulbasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shulbasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12855,7 +12855,7 @@
     },
     {
       "path": "data/vedanga/shiksha/atharvaveda_shiksha/manduki_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Manduki Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -12871,7 +12871,7 @@
     },
     {
       "path": "data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Rigveda Pratishakhya",
       "facets": {
         "default_author": "unspecified"
@@ -12879,7 +12879,7 @@
     },
     {
       "path": "data/vedanga/shiksha/pratishakhya/samaveda_pratishakhya/pushpasutra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Pushpasutra",
       "facets": {
         "default_author": "unspecified"
@@ -12887,7 +12887,7 @@
     },
     {
       "path": "data/vedanga/shiksha/pratishakhya/samaveda_pratishakhya/rik_tantra/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Rik Tantra",
       "facets": {
         "default_author": "unspecified"
@@ -12895,7 +12895,7 @@
     },
     {
       "path": "data/vedanga/shiksha/pratishakhya/shaunakiya_chaturadhyayika/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shaunakiya Chaturadhyayika",
       "facets": {
         "default_author": "unspecified"
@@ -12903,7 +12903,7 @@
     },
     {
       "path": "data/vedanga/shiksha/pratishakhya/taittiriya_pratishakhya/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Taittiriya Pratishakhya",
       "facets": {
         "default_author": "unspecified"
@@ -12911,7 +12911,7 @@
     },
     {
       "path": "data/vedanga/shiksha/pratishakhya/vajasaneyi_pratishakhya/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vajasaneyi Pratishakhya",
       "facets": {
         "default_author": "unspecified"
@@ -12919,7 +12919,7 @@
     },
     {
       "path": "data/vedanga/shiksha/rigveda_shikshas/apishali_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Apishali Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -12927,7 +12927,7 @@
     },
     {
       "path": "data/vedanga/shiksha/rigveda_shikshas/shaishiriya_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shaishiriya Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -12935,7 +12935,7 @@
     },
     {
       "path": "data/vedanga/shiksha/rigveda_shikshas/shodashasloki_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shodashasloki Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -12943,7 +12943,7 @@
     },
     {
       "path": "data/vedanga/shiksha/rigveda_shikshas/swarankusha_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Swarankusha Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -12951,7 +12951,7 @@
     },
     {
       "path": "data/vedanga/shiksha/samaveda_shikshas/gautami_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Gautami Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -12959,7 +12959,7 @@
     },
     {
       "path": "data/vedanga/shiksha/samaveda_shikshas/lomashi_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Lomashi Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -12975,7 +12975,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/krishna_yajurveda_shikshas/aranya_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Aranya Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -12983,7 +12983,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/krishna_yajurveda_shikshas/bharadwaja_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Bharadwaja Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -12991,7 +12991,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/krishna_yajurveda_shikshas/kauhaliya_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kauhaliya Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -12999,7 +12999,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/krishna_yajurveda_shikshas/sarvamammata_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Sarvamammata Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13007,7 +13007,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/krishna_yajurveda_shikshas/shambhu_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shambhu Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13015,7 +13015,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/krishna_yajurveda_shikshas/siddhanta_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Siddhanta Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13023,7 +13023,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/krishna_yajurveda_shikshas/vyasa_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vyasa Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13031,7 +13031,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/amoghanandini_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Amoghanandini Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13039,7 +13039,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/awasannirnaya_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Awasannirnaya Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13047,7 +13047,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/hastaswaraprakriya_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Hastaswaraprakriya Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13055,7 +13055,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/katyayani_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Katyayani Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13063,7 +13063,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/keshavi_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Keshavi Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13071,7 +13071,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/kramakarika_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kramakarika Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13079,7 +13079,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/kramasandhana_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kramasandhana Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13087,7 +13087,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/laghu_amoghanandini_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Laghu Amoghanandini Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13095,7 +13095,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/madhyandini_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Madhyandini Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13103,7 +13103,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/manahswar_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Manahswar Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13111,7 +13111,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/mandavya_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Mandavya Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13119,7 +13119,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/parashari_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Parashari Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13127,7 +13127,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/swarabhaktilakshanaparishishta_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Swarabhaktilakshanaparishishta Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13135,7 +13135,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/swarashtaka_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Swarashtaka Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13143,7 +13143,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/varnaratnapradipika_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Varnaratnapradipika Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13151,7 +13151,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/vasishthi_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vasishthi Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13159,7 +13159,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/yajnavalkya_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Yajnavalkya Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13167,7 +13167,7 @@
     },
     {
       "path": "data/vedanga/shiksha/yajurveda_shikshas/shukla_yajurveda_shikshas/yajurvidhana_shiksha/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Yajurvidhana Shiksha",
       "facets": {
         "default_author": "unspecified"
@@ -13175,7 +13175,7 @@
     },
     {
       "path": "data/vedanga/vyakarana/aindra_school/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Aindra School",
       "facets": {
         "default_author": "unspecified"
@@ -13254,7 +13254,7 @@
     },
     {
       "path": "data/vedanga/vyakarana/chandra_vyakarana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Chandra Vyakarana",
       "facets": {
         "default_author": "unspecified"
@@ -13272,7 +13272,7 @@
     },
     {
       "path": "data/vedanga/vyakarana/haima_shabdanushasana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Haima Shabdanushasana",
       "facets": {
         "default_author": "unspecified"
@@ -13280,7 +13280,7 @@
     },
     {
       "path": "data/vedanga/vyakarana/jainendra_vyakarana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Jainendra Vyakarana",
       "facets": {
         "default_author": "unspecified"
@@ -13288,7 +13288,7 @@
     },
     {
       "path": "data/vedanga/vyakarana/katantra_vyakarana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Katantra Vyakarana",
       "facets": {
         "default_author": "unspecified"
@@ -13296,7 +13296,7 @@
     },
     {
       "path": "data/vedanga/vyakarana/mugdhabodha_vyakarana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Mugdhabodha Vyakarana",
       "facets": {
         "default_author": "unspecified"
@@ -13304,7 +13304,7 @@
     },
     {
       "path": "data/vedanga/vyakarana/sarasvata_vyakarana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Sarasvata Vyakarana",
       "facets": {
         "default_author": "unspecified"
@@ -13317,7 +13317,7 @@
     },
     {
       "path": "data/vedanga/vyakarana/shakatayana_vyakarana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shakatayana Vyakarana",
       "facets": {
         "default_author": "unspecified"
@@ -13333,7 +13333,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_02/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 02",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13341,7 +13341,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_03/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 03",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13365,7 +13365,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_06/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 06",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13373,7 +13373,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_07/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 07",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13381,7 +13381,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_08/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 08",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13389,7 +13389,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_09/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 09",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13405,7 +13405,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_11/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 11",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13421,7 +13421,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_13/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 13",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13429,7 +13429,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_14/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 14",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13437,7 +13437,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_15/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 15",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13445,7 +13445,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_16/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 16",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13453,7 +13453,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_17/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 17",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13461,7 +13461,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_18/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 18",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13477,7 +13477,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_20/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kanda 20",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13653,7 +13653,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/mandukya_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Mandukya Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13669,7 +13669,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/prashna_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Prashna Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13677,7 +13677,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/advayataraka_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Advayataraka Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13685,7 +13685,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/avyakta_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Avyakta Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13693,7 +13693,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/dattatreya_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Dattatreya Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13701,7 +13701,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/gopalatapani_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Gopalatapani Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13709,7 +13709,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/hayagriva_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Hayagriva Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13717,7 +13717,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/kalisantarana_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kalisantarana Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13725,7 +13725,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/krishna_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Krishna Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13733,7 +13733,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/mahanarayana_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Mahanarayana Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13741,7 +13741,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/narayana_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Narayana Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13749,7 +13749,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/nrisimhatapaniya_upanishad/purva_tapaniya/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Purva Tapaniya",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13757,7 +13757,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/nrisimhatapaniya_upanishad/uttara_tapaniya/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Uttara Tapaniya",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13765,7 +13765,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/ramarahasya_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Ramarahasya Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13773,7 +13773,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/ramatapaniya_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Ramatapaniya Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13781,7 +13781,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/tarasara_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Tarasara Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13789,7 +13789,7 @@
     },
     {
       "path": "data/vedas/atharvaveda/shaunaka_shakha/upanishads/vaishnava_upanishads_group/vasudeva_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vasudeva Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13805,7 +13805,7 @@
     },
     {
       "path": "data/vedas/rigveda/shakala_shakha/aranyakas/kausitaki_shankhayana_aranyaka/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kausitaki Shankhayana Aranyaka",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13821,7 +13821,7 @@
     },
     {
       "path": "data/vedas/rigveda/shakala_shakha/brahmanas/kausitaki_shankhayana_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kausitaki Shankhayana Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13917,7 +13917,7 @@
     },
     {
       "path": "data/vedas/rigveda/shakala_shakha/upanishads/kausitaki_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kausitaki Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13925,7 +13925,7 @@
     },
     {
       "path": "data/vedas/samaveda/jaiminiya_shakha/aranyaka/jaiminiya_talavakara_aranyaka/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Jaiminiya Talavakara Aranyaka",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13933,7 +13933,7 @@
     },
     {
       "path": "data/vedas/samaveda/jaiminiya_shakha/brahmanas/jaiminiya_arsheya_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Jaiminiya Arsheya Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13949,7 +13949,7 @@
     },
     {
       "path": "data/vedas/samaveda/jaiminiya_shakha/brahmanas/jaiminiya_upanishad_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Jaiminiya Upanishad Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13957,7 +13957,7 @@
     },
     {
       "path": "data/vedas/samaveda/jaiminiya_shakha/samhita/purvarchika/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Purvarchika",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13965,7 +13965,7 @@
     },
     {
       "path": "data/vedas/samaveda/jaiminiya_shakha/samhita/uttararchika/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Uttararchika",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13973,7 +13973,7 @@
     },
     {
       "path": "data/vedas/samaveda/jaiminiya_shakha/upanishad/kena_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kena Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13981,7 +13981,7 @@
     },
     {
       "path": "data/vedas/samaveda/kauthuma_shakha/brahmanas/arsheya_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Arsheya Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13989,7 +13989,7 @@
     },
     {
       "path": "data/vedas/samaveda/kauthuma_shakha/brahmanas/chandogya_upanishad_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Chandogya Upanishad Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -13997,7 +13997,7 @@
     },
     {
       "path": "data/vedas/samaveda/kauthuma_shakha/brahmanas/devatadhyaya_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Devatadhyaya Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14005,7 +14005,7 @@
     },
     {
       "path": "data/vedas/samaveda/kauthuma_shakha/brahmanas/panchavimsha_tandya_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Panchavimsha Tandya Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14021,7 +14021,7 @@
     },
     {
       "path": "data/vedas/samaveda/kauthuma_shakha/brahmanas/samhitopanishad_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Samhitopanishad Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14029,7 +14029,7 @@
     },
     {
       "path": "data/vedas/samaveda/kauthuma_shakha/brahmanas/shadvimsha_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shadvimsha Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14037,7 +14037,7 @@
     },
     {
       "path": "data/vedas/samaveda/kauthuma_shakha/brahmanas/vamsha_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Vamsha Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14069,7 +14069,7 @@
     },
     {
       "path": "data/vedas/samaveda/ranayaniya_shakha/samhita/purvarchika/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Purvarchika",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14077,7 +14077,7 @@
     },
     {
       "path": "data/vedas/samaveda/ranayaniya_shakha/samhita/uttararchika/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Uttararchika",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14085,7 +14085,7 @@
     },
     {
       "path": "data/vedas/yajurveda/krishna_yajurveda/kapisthala_shakha/brahmana/katha_kapisthala_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Katha Kapisthala Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14093,7 +14093,7 @@
     },
     {
       "path": "data/vedas/yajurveda/krishna_yajurveda/kapisthala_shakha/samhita/kapisthala_katha_samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kapisthala Katha Samhita",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14101,7 +14101,7 @@
     },
     {
       "path": "data/vedas/yajurveda/krishna_yajurveda/katha_shakha/brahmana/kathaka_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Kathaka Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14125,7 +14125,7 @@
     },
     {
       "path": "data/vedas/yajurveda/krishna_yajurveda/maitrayani_shakha/brahmana/maitrayani_brahmana/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Maitrayani Brahmana",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14141,7 +14141,7 @@
     },
     {
       "path": "data/vedas/yajurveda/krishna_yajurveda/maitrayani_shakha/upanishad/maitrayaniya_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Maitrayaniya Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14229,7 +14229,7 @@
     },
     {
       "path": "data/vedas/yajurveda/shukla_yajurveda/vajasaneyi_kanva_shakha/brahmana/shatapatha_brahmana_kanva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shatapatha Brahmana Kanva",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14237,7 +14237,7 @@
     },
     {
       "path": "data/vedas/yajurveda/shukla_yajurveda/vajasaneyi_kanva_shakha/samhita/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Samhita",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14245,7 +14245,7 @@
     },
     {
       "path": "data/vedas/yajurveda/shukla_yajurveda/vajasaneyi_kanva_shakha/upanishad/brihadaranyaka_upanishad_kanva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Brihadaranyaka Upanishad Kanva",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14253,7 +14253,7 @@
     },
     {
       "path": "data/vedas/yajurveda/shukla_yajurveda/vajasaneyi_kanva_shakha/upanishad/isha_upanishad_kanva/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Isha Upanishad Kanva",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14589,7 +14589,7 @@
     },
     {
       "path": "data/vedas/yajurveda/shukla_yajurveda/vajasaneyi_madhyandina_shakha/brahmana/shatapatha_brahmana_madhyandina/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Shatapatha Brahmana Madhyandina",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14605,7 +14605,7 @@
     },
     {
       "path": "data/vedas/yajurveda/shukla_yajurveda/vajasaneyi_madhyandina_shakha/upanishad/brihadaranyaka_upanishad_madhyandina/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Brihadaranyaka Upanishad Madhyandina",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
@@ -14613,7 +14613,7 @@
     },
     {
       "path": "data/vedas/yajurveda/shukla_yajurveda/vajasaneyi_madhyandina_shakha/upanishad/isha_upanishad/data.json",
-      "populated": true,
+      "populated": false,
       "title": "Isha Upanishad",
       "facets": {
         "default_author": "Apaurusheya (traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field)"
