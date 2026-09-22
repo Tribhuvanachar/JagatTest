@@ -1035,7 +1035,7 @@
   window.dvcExportCSV = exportRowsCSV; // used by the verification script
 
   /* ---------------- GitHub sync ---------------- */
-  function ghCfg() { return window.GITHUB_REPO_CONFIG || { owner: 'Tribhuvanachar', repo: 'buddhi', branch: 'main' }; }
+  function ghCfg() { return window.GITHUB_REPO_CONFIG || { owner: 'Tribhuvanachar', repo: 'bhumandala', branch: 'main' }; }
   function ghToken() { try { return localStorage.getItem('github_admin_pat') || ''; } catch (e) { return ''; } }
   function b64(str) { return btoa(String.fromCharCode.apply(null, new TextEncoder().encode(str))); }
   function ghApi(path, opts) {

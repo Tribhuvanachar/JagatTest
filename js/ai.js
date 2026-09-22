@@ -1961,7 +1961,7 @@ function dgeWithTimeout(promise, ms, fallback) {
   return Promise.race([promise, new Promise(res => setTimeout(() => res(fallback), ms))]);
 }
 
-const DGE_SANDHI_CDN = 'search_index/_sandhi';
+const DGE_SANDHI_CDN = 'https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@2a255c3dd7f357364c75a72afa664a6588c8ff44/_sandhi';
 const DGE_SANDHI_BUCKET_CACHE = {};
 function dgeSandhiBucketOf(slp) {
   const two = (slp + '__').slice(0, 2);

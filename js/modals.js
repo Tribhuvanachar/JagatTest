@@ -50,11 +50,9 @@ function closeModal(id) {
 // already in css/main.css) until the user has opened this menu once WHILE
 // it's visible; add a new {itemId, badgeId} pair whenever an admin-only
 // feature ships, and remove it once it's no longer worth flagging.
-// 12 Sep 2026: Audio Admin (the one entry ever listed here) moved to the
-// private the working repository repo along with the rest of the admin/*.html pages —
-// its badge markup went with it. Add a new {itemId, badgeId} pair here
-// whenever a LOCAL (this-repo) admin-only feature ships.
-const NEW_ADMIN_FEATURES = [];
+const NEW_ADMIN_FEATURES = [
+  { itemId: 'adminAudioManagerItem', badgeId: 'adminAudioManagerBadge' }
+];
 const NEW_FEATURES_SEEN_KEY = 'dge_admin_new_features_seen';
 function markNewFeatureBadges() {
   let seen;
@@ -160,17 +158,15 @@ window.openAboutModal = function() {
   localStorage.setItem('has_seen_welcome', 'true');
 };
 
-// First-visit welcome — shows the same About modal automatically once,
-// after the app has finished loading its data (so the title/content
-// behind it isn't jarring). Never shows again after that unless the
-// person clears site data.
-document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('has_seen_welcome') !== 'true') {
-    setTimeout(() => {
-      if (typeof stotraData !== 'undefined' && stotraData) window.openAboutModal();
-    }, 900);
-  }
-});
+// The About panel does not open itself. It used to, 900ms after the reader
+// finished loading, on any browser that had not seen it -- so a first-time
+// visitor met three panels in a row: the vandana, the language preference,
+// and this, stacked over a text they had not yet read a line of. Removed
+// permanently on 21 Sep 2026 at the lead's instruction. About stays exactly
+// where someone looking for it would go: the ☰ menu.
+//
+// The language preference (js/onboarding.js) still shows itself once per
+// browser, and is the only panel that does.
 
 // Reader redesign, section 13 ("remove wasted space" at the top of the
 // page): the "💝 Support This Project" button used to sit inline in the
@@ -189,12 +185,12 @@ function dgeAboutEsc(s) {
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-// content/home.json, fetched lazily and only once -- most visitors
+// admin/content/home.json, fetched lazily and only once -- most visitors
 // never open a profile panel, so this shouldn't cost a request at boot.
 let dgeHomeContentPromise = null;
 function dgeFetchHomeContent() {
   if (!dgeHomeContentPromise) {
-    dgeHomeContentPromise = fetch('../content/home.json?t=' + Date.now(), { cache: 'no-store' })
+    dgeHomeContentPromise = fetch('../admin/content/home.json?t=' + Date.now(), { cache: 'no-store' })
       .then(r => (r.ok ? r.json() : null))
       .catch(() => null);
   }
@@ -246,7 +242,7 @@ window.openProfilePanel = function(key) {
 };
 
 // About This Project's opening paragraph and "Designed By" line, and Our
-// Story's full bio — content/reader.json's `about`/`ourStory` keys.
+// Story's full bio — admin/content/reader.json's `about`/`ourStory` keys.
 // Rendered into these two functions (not baked into render.html) so a
 // super admin's content-inline.js edit here actually has a data-edit path
 // pointing somewhere: what "which file, which field" the edit tool's own
@@ -339,7 +335,7 @@ window.dgeOpenOurStory = function() { window.openOurStoryModal(); };
 // content-inline.js stages an edit into window.SITE_CONFIG and calls this
 // (see js/content-inline.js) so the change appears in the real layout
 // immediately rather than only after Publish + a refresh. Re-runs whichever
-// of this page's own render functions actually draw from content/
+// of this page's own render functions actually draw from admin/content/
 // reader.json; each one is cheap and safe to call even while its modal is
 // closed, since they just repopulate an offscreen container.
 window.dgeContentRerender = function() {
@@ -357,7 +353,7 @@ window.openSponsorModal = function() {
   const cfg = SPONSOR_CONFIG;
   const cur = cfg.currency || '₹';
 
-  // data-edit names the path inside content/reader.json, so a super
+  // data-edit names the path inside admin/content/reader.json, so a super
   // admin can correct this paragraph on the panel itself (content-inline.js).
   let html = `<p data-edit="SPONSOR_CONFIG.introText" style="font-size:13px; line-height:1.6; margin:0 0 18px 0;">${cfg.introText || ''}</p>`;
 
@@ -426,7 +422,7 @@ function dgeSortUpdatesNewestFirst(updates) {
    tab open would never see it. */
 window.openWhatsNewModal = function() {
   const url = (typeof window.dgeContentUrl === 'function')
-    ? window.dgeContentUrl('whats-new.json') : 'content/whats-new.json';
+    ? window.dgeContentUrl('whats-new.json') : 'admin/content/whats-new.json';
   fetch(url + '?t=' + Date.now(), { cache: 'no-store' })
     .then(r => (r.ok ? r.json() : null))
     .catch(() => null)

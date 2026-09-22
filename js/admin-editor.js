@@ -103,23 +103,16 @@ function dgeRevealAdminTools() {
   if (!dgeCheckSuperadminGate()) return;
   const btn = document.getElementById('adminToolsBtn');
   if (btn) btn.style.display = 'flex';
-  // 12 Sep 2026: every id that used to name an admin/*.html page directly
-  // (adminLibraryManagerItem, adminKoshaManagerItem, ...) was removed from
-  // this list along with those pages themselves — they moved to the private
-  // the working repository repo and are no longer named anywhere in this one.
-  // adminBrahmaBuddhiItem is the single, generically-labelled replacement:
-  // it only opens the PAT prompt (js/admin-remote.js), which fetches
-  // the real (page-naming) menu from the working repository itself once unlocked.
-  ['adminFilesItem', 'adminConfigItem', 'adminBrahmaBuddhiItem'].forEach(id => {
+  ['adminFilesItem', 'adminConfigItem', 'adminConvertItem', 'adminLibraryManagerItem', 'adminKoshaManagerItem', 'adminAshtadhyayiManagerItem', 'adminHolyPlacesManagerItem', 'adminAudioManagerItem', 'adminDasaCaptureItem', 'adminContentProvenanceItem', 'adminRepoMapItem', 'adminOcrReviewItem'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = 'flex';
   });
-  // Manage Users only makes sense once accounts are actually set up —
-  // showing it before then would just be a menu item that always toasts
-  // "not set up yet" (see openUserRolesModal in user-roles.js). Access
-  // Control's own gate moved with it to the working repository's admin/access-control.html.
+  // Manage Users / Access Control only make sense once accounts are
+  // actually set up — showing them before then would just be menu items
+  // that always toast "not set up yet" (see openUserRolesModal in
+  // user-roles.js and admin/access-control.html's own gate).
   if (window.AUTH_CONFIG && window.AUTH_CONFIG.enabled) {
-    ['adminUserRolesItem', 'adminViewAsItem'].forEach(id => {
+    ['adminUserRolesItem', 'adminAccessControlItem', 'adminViewAsItem'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.style.display = 'flex';
     });
@@ -537,11 +530,11 @@ async function dgeAdminNavigate(path) {
     const allParts = path.split('/').filter(Boolean);
     const visibleParts = allParts.slice(rootParts.length);
     let acc = root;
-    // An empty root is the repo root itself (buddhi) — label it as
+    // An empty root is the repo root itself (bhumandala) — label it as
     // such rather than a bare "/", and don't let the next segment pick up
     // a leading slash from an empty accumulator ("" + "/dge" = "/dge",
     // an invalid path one level narrower than intended).
-    let crumbHtml = `<span class="admin-crumb" data-path="${root}" onclick="window.dgeAdminNavigateClick('${root}')" ondragover="event.preventDefault(); this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="window.dgeAdminHandleDrop(event, '${root}')">${root || 'buddhi'}</span>`;
+    let crumbHtml = `<span class="admin-crumb" data-path="${root}" onclick="window.dgeAdminNavigateClick('${root}')" ondragover="event.preventDefault(); this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="window.dgeAdminHandleDrop(event, '${root}')">${root || 'bhumandala'}</span>`;
     visibleParts.forEach(p => {
       acc = acc ? acc + '/' + p : p;
       const dest = acc;
@@ -814,13 +807,24 @@ async function dgeAdminValidateGranthaFileEntries(fileEntries) {
   // requirement.
   //
   // 23 Aug 2026: the project lead deliberately chose PascalCase for these
-  // four folders (SarvaMula/Tattvavada/SetuTila under Vedanta/Dvaita,
-  // and Tattvavada/Itara/Stotra/prahlada_kruta_narasimha) as the new naming standard going
-  // forward, so they're exempted here rather than nagging on every future
-  // load of this editor.
+  // folder NAMES (not a path) as the new naming standard going forward, so
+  // they're exempted here rather than nagging on every future load of this
+  // editor.
+  //
+  // 14 Sep 2026: 'DvaitaVedanta' became 'Tattvavada' when the top-level shelf
+  // was renamed, so the exemption moves with it -- left as the old name this
+  // list would stop matching anything and every load would nag about a folder
+  // the lead chose on purpose.
+  //
+  // 20 Sep 2026: the shelves named after their source websites came OUT of
+  // this list. They were shipping in plain sight in a file render.html loads
+  // publicly, to exempt folders that cannot be edited publicly in the first
+  // place. They now live in js/private-names.js, which does not publish; out
+  // there the global is undefined and the list is simply shorter.
   const DGE_INTENTIONAL_PASCAL_CASE = new Set([
-    'SarvaMula', 'DvaitaVedanta', 'SetuTila', 'PrahladaKrutaNarasimha'
-  ]);
+    'SarvaMula', 'Tattvavada', 'SetuTila', 'PrahladaKrutaNarasimha',
+    'Itara', 'Kavya', 'Stotra', 'DasaSahitya'
+  ].concat((typeof window !== 'undefined' && window.DGE_PRIVATE_PASCAL_CASE) || []));
   const badSegs = new Set();
   parsed.forEach(({ path }) => {
     path.replace(/^data\//, '').split('/').slice(0, -1).forEach(seg => {

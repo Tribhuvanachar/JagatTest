@@ -39,7 +39,8 @@
   // this rail too, so none of them is a dead end any more.
   var GROUPS = [
     { id: "read", label: "Read" },
-    { id: "tools", label: "Sanskrit tools" }
+    { id: "tools", label: "Sanskrit tools" },
+    { id: "lab", label: "Experiments" }
   ];
   var ITEMS = [
     { id: "home", group: "read", label: "DGE Home", glyph: "⌂", href: "render.html" },
@@ -60,9 +61,8 @@
     { id: "unadi", group: "tools", label: "Uṇādi-sūtra", glyph: "उ", href: "vyakarana/unadi.html" },
     { id: "phitsutra", group: "tools", label: "Phiṭ-sūtra", glyph: "फि", href: "vyakarana/phitsutra.html" },
     { id: "linganushasana", group: "tools", label: "Liṅgānuśāsana", glyph: "लि", href: "vyakarana/linganushasana.html" },
-    { id: "ganapatha", group: "tools", label: "Gaṇapāṭha", glyph: "ग", href: "vyakarana/ganapatha.html" }
-    // 12 Sep 2026: "Kamadhenu trials" pulled -- still a pilot, moved to
-    // the working repository, not ready for the public site.
+    { id: "ganapatha", group: "tools", label: "Gaṇapāṭha", glyph: "ग", href: "vyakarana/ganapatha.html" },
+    { id: "kamadhenu", group: "lab", label: "Kamadhenu trials", glyph: "🐄", href: "kamadhenu.html" }
   ];
 
   // Per-device vertical position of the tab (px from viewport top). Absent

@@ -75,7 +75,7 @@ window.dgeForceRefreshContent = function() {
 // the fields actually changed, and anything absent falls back to the
 // hardcoded default. config.js itself is never modified by the UI.
 /* ---------------------------------------------------------------------- //
-   Config and content live outside  — see /config/ and /content/. These files used to
+   Admin config lives outside  — see /admin/config/. These files used to
    sit in data/ and were fetched with a page-relative path, which only
    worked from pages one level deep. The path is now derived from this
    script's own URL (always <site>/js/), so it holds at any page depth
@@ -282,6 +282,20 @@ const DGE_LEGACY_SLUGS = {
   'vedanga/jyotisha':                 'vedanga/jyotisha/mula'
 };
 
+// Upgrading must be IDEMPOTENT: upgrade(upgrade(x)) === upgrade(x).
+//
+// Two of these rules rename a folder into a leaf BELOW itself --
+// 'vedanga/nirukta' -> 'vedanga/nirukta/mula'. The prefix test then matched
+// the upgraded slug all over again, because 'vedanga/nirukta/mula' does
+// start with 'vedanga/nirukta/', and the leaf was appended a second time.
+// Every link to the Nirukta and the Jyotisha asked the server for
+// data/vedanga/nirukta/mula/mula/data.json, got a 404, and showed the reader
+// "Data Not Found" -- two of the six Vedangas unreachable, behind a rule
+// whose whole purpose was to make them reachable. Found by the render sweep
+// of all 1,306 granthas, 21 Sep 2026.
+//
+// A slug already sitting at or under its own destination is already
+// upgraded, and is returned untouched.
 window.dgeUpgradeLegacySlug = function (slug) {
   if (!slug) return slug;
   let best = null;
@@ -291,30 +305,28 @@ window.dgeUpgradeLegacySlug = function (slug) {
     }
   });
   if (!best) return slug;
-  return DGE_LEGACY_SLUGS[best] + slug.slice(best.length);
+  const dest = DGE_LEGACY_SLUGS[best];
+  if (slug === dest || slug.indexOf(dest + '/') === 0) return slug;
+  return dest + slug.slice(best.length);
 };
 const dgeUpgradeLegacySlug = window.dgeUpgradeLegacySlug;
 
 window.dgeAdminConfigUrl = window.dgeAdminConfigUrl || function (name) {
   const self = (document.currentScript && document.currentScript.src) ||
                (window.DGE_SCRIPT_BASE || '');
-  try { return new URL('../config/' + name, self).href; }
-  catch (e) { return '../config/' + name; }   // fail soft, never throw
+  try { return new URL('../admin/config/' + name, self).href; }
+  catch (e) { return '../admin/config/' + name; }   // fail soft, never throw
 };
 
-/* What's New and Coming Soon are content, not settings — content/, not
-   config/. Loaded here so the Site Settings editor can fill its form
+/* What's New and Coming Soon are content, not settings — admin/content/, not
+   admin/config/. Loaded here so the Site Settings editor can fill its form
    from the same source the reader sees; modals.js re-fetches on open so a
-   freshly published update reaches someone who already has the site loaded.
-   (12 Sep 2026: these used to sit under admin/config/ and admin/content/ —
-   both renamed to repo-root config/ and content/ when the actual admin
-   TOOLS moved out to the working repository; these two files are read live by every
-   visitor and stayed public.) */
+   freshly published update reaches someone who already has the site loaded. */
 window.dgeContentUrl = window.dgeContentUrl || function (name) {
   const self = (document.currentScript && document.currentScript.src) ||
                (window.DGE_SCRIPT_BASE || '');
-  try { return new URL('../content/' + name, self).href; }
-  catch (e) { return '../content/' + name; }
+  try { return new URL('../admin/content/' + name, self).href; }
+  catch (e) { return '../admin/content/' + name; }
 };
 
 window.dgeWhatsNewPromise = fetch(window.dgeContentUrl('whats-new.json') + '?t=' + Date.now(),
@@ -330,7 +342,7 @@ window.dgeWhatsNewPromise = fetch(window.dgeContentUrl('whats-new.json') + '?t='
   });
 
 /* The Support and About panels' text. These were constants in config.js; they
-   are content, so they come from content/reader.json. Everything that
+   are content, so they come from admin/content/reader.json. Everything that
    reads window.SPONSOR_CONFIG and friends is unchanged — the globals are set
    here instead of there, before the first render. */
 window.dgeReaderContentPromise = fetch(window.dgeContentUrl('reader.json') + '?t=' + Date.now(),
@@ -352,7 +364,7 @@ window.dgeReaderContentPromise = fetch(window.dgeContentUrl('reader.json') + '?t
     if (rc.CONTRIBUTORS_CONFIG) window.CONTRIBUTORS_CONFIG = rc.CONTRIBUTORS_CONFIG;
     if (rc.KEY_SPONSORS_CONFIG) window.KEY_SPONSORS_CONFIG = rc.KEY_SPONSORS_CONFIG;
     // content-inline.js (loaded on this page via <body data-content-file=
-    // "content/reader.json">) stages every edit into window.SITE_CONFIG
+    // "admin/content/reader.json">) stages every edit into window.SITE_CONFIG
     // by dotted path and expects the live page to already be reading off
     // that same object -- rc IS this file, so pointing SITE_CONFIG at it
     // directly means an edit to e.g. "SPONSOR_CONFIG.introText" lands on the
@@ -376,7 +388,7 @@ window.dgeConfigOverridesPromise = Promise.all([
       SPONSOR_CONFIG: window.SPONSOR_CONFIG,
       CONTRIBUTORS_CONFIG: window.CONTRIBUTORS_CONFIG,
       KEY_SPONSORS_CONFIG: window.KEY_SPONSORS_CONFIG
-      // WHATS_NEW_CONFIG is not here: it is content/whats-new.json now,
+      // WHATS_NEW_CONFIG is not here: it is admin/content/whats-new.json now,
       // fetched fresh by modals.js rather than merged once at boot.
     };
     Object.keys(targets).forEach(k => {
@@ -467,6 +479,15 @@ document.addEventListener('DOMContentLoaded', () => {
 // marks — confirmed by checking the actual codepoints against real
 // rendered output, not guessed. Remapped here, as early as possible, so
 // every downstream use (display, copy, search, share) benefits uniformly.
+// Same spellings as tools/compile_grantha_v2.py's own ADHYAYA/PADA tables
+// (reversed index->word here since the compiler only ever needed word->index) --
+// used by dgeNormalizeGranthaData's grantha_layer_v2 branch to label a v2
+// spine's section-navigator groups the way the legacy breadcrumb branch's
+// data already does. Falls back to "अध्यायः <N>" beyond adhyaya 4 / pada 4,
+// which no Brahmasutra-family work needs today.
+const DGE_ADHYAYA_WORDS = { 1: 'प्रथमाध्यायः', 2: 'द्वितीयोऽध्यायः', 3: 'तृतीयोऽध्यायः', 4: 'चतुर्थोऽध्यायः' };
+const DGE_PADA_WORDS = { 1: 'प्रथमः पादः', 2: 'द्वितीयः पादः', 3: 'तृतीयः पादः', 4: 'चतुर्थः पादः' };
+
 function dgeToDevanagariDigits(s) {
   const map = { '0': '०', '1': '१', '2': '२', '3': '३', '4': '४', '5': '५', '6': '६', '7': '७', '8': '८', '9': '९' };
   return String(s).replace(/[0-9]/g, (d) => map[d]);
@@ -551,9 +572,37 @@ function dgeSanitizeVedicAccents(text) {
 // which is an acceptable cost for what should be a rare, deliberate
 // research toggle rather than a startup-time architecture change.
 const DGE_COPYRIGHT_GATED_COMMENTARY_KEYS = { kannada: true };
+
+// 20 Sep 2026, the lead: a gated commentary "will only be shown to a user who
+// has access to the GitHub token -- that is super admin."
+//
+// The config flag stays: it is the site-wide switch, and flipping it publishes
+// this material to everyone deliberately. What is new is that a super admin
+// sees it whatever the flag says, because they are the person who has to READ
+// it to prepare it. Holding the private-repo token counts as being that
+// person -- it is the same credential that reaches the private corpus at all,
+// and it is what the lead means by "has access to the GitHub token".
+//
+// Not access control, and worth being plain about: this decides what a
+// NORMALIZED grantha object exposes to the rest of the app. The text is in
+// the data.json either way, and for the 18 works that carry it -- 84,138
+// units of the Kannada Mahabharata -- those files publish. What stops a
+// determined reader is licensing, not this function.
+function dgeGatedCommentaryViewer() {
+  if (window.appConfig && window.appConfig.showCopyrightGatedCommentaries) return true;
+  try {
+    // The private-repo token. Its presence is the strongest signal available
+    // in the browser that this is the lead and not a reader.
+    if (window.localStorage && window.localStorage.getItem('brahmabuddhi_pat')) return true;
+  } catch (e) { /* private mode: fall through to the gate below */ }
+  try {
+    return !!(window.DGEAdminGate && window.DGEAdminGate.isSuperAdmin());
+  } catch (e) { return false; }
+}
+
 function dgeVisibleCommentaries(commentaries) {
   if (!commentaries) return commentaries;
-  if (window.appConfig && window.appConfig.showCopyrightGatedCommentaries) return commentaries;
+  if (dgeGatedCommentaryViewer()) return commentaries;
   const out = {};
   Object.keys(commentaries).forEach((k) => {
     if (!DGE_COPYRIGHT_GATED_COMMENTARY_KEYS[k]) out[k] = commentaries[k];
@@ -581,7 +630,7 @@ function dgeBuildBhagavataRefLink(bhagavataRef, references) {
   const ref = Array.isArray(references) ? references.find(r => r && r.target && r.unit_id) : null;
   if (!ref) return null;
   const jumpVedicId = ref.unit_id + '#' + bhagavataRef.verse;
-  const url = 'index.html?path=' + ref.target + '&jumpVedicId=' + encodeURIComponent(jumpVedicId);
+  const url = 'render.html?path=' + ref.target + '&jumpVedicId=' + encodeURIComponent(jumpVedicId);
   return { url, label: `भा. ${bhagavataRef.skandha}.${bhagavataRef.adhyaya}.${bhagavataRef.verse}` };
 }
 
@@ -626,7 +675,24 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
     // first-pass for a vetted commentary.
     gemini_padaccheda: 'AI Padaccheda (Gemini, unreviewed)',
     gemini_anvaya: 'AI Anvaya (Gemini, unreviewed)',
-    gemini_summary: 'AI Summary (Gemini, unreviewed)'
+    gemini_summary: 'AI Summary (Gemini, unreviewed)',
+    // Harikathamrtasara's commentary layers (tools/hks/). The printed
+    // volumes announce each one by its Kannada name, so the label is that
+    // name -- the ASCII keys are only what the JSON can hold. Without
+    // these the picker showed 'Guruhrdaya_prakashika', which is neither
+    // the work's name nor a word in any language.
+    vyakhyana: '\u0CB5\u0CCD\u0CAF\u0CBE\u0C96\u0CCD\u0CAF\u0CBE\u0CA8 \u2014 Vy\u0101khy\u0101na',
+    pratipadartha: '\u0CAA\u0CCD\u0CB0\u0CA4\u0CBF\u0CAA\u0CA6\u0CBE\u0CB0\u0CCD\u0CA5 \u2014 Pratipad\u0101rtha',
+    bhavaprakashika: '\u0CAD\u0CBE\u0CB5\u0CAA\u0CCD\u0CB0\u0C95\u0CBE\u0CB6\u0CBF\u0C95\u0CC6 \u2014 Bh\u0101vaprak\u0101\u015Bik\u0101',
+    bhavadarpana: '\u0CAD\u0CBE\u0CB5\u0CA6\u0CB0\u0CCD\u0CAA\u0CA3 \u2014 Bh\u0101vadarpa\u1E47a',
+    bhavadarshana: '\u0CAD\u0CBE\u0CB5\u0CA6\u0CB0\u0CCD\u0CB6\u0CA8 \u2014 Bh\u0101vadar\u015Bana',
+    guruhrdaya_prakashika: '\u0CB6\u0CCD\u0CB0\u0CC0\u0C97\u0CC1\u0CB0\u0CC1\u0CB9\u0CC3\u0CA6\u0CAF\u0CAA\u0CCD\u0CB0\u0C95\u0CBE\u0CB6\u0CBF\u0C95\u0CC6 \u2014 Guruh\u1E5Bdayaprak\u0101\u015Bik\u0101',
+    sankarshana_odeyara_vyakhyana: '\u0CB6\u0CCD\u0CB0\u0CC0 \u0CB8\u0C82\u0C95\u0CB0\u0CCD\u0CB7\u0CA3 \u0C92\u0CA1\u0CC6\u0CAF\u0CB0 \u0CB5\u0CCD\u0CAF\u0CBE\u0C96\u0CCD\u0CAF\u0CBE\u0CA8 \u2014 \u015Ar\u012B Sa\u1E45kar\u1E63a\u1E47a O\u1E0Deyar',
+    vyasadasa_siddhanta_kaumudi: '\u0CB6\u0CCD\u0CB0\u0CC0 \u0CB5\u0CCD\u0CAF\u0CBE\u0CB8\u0CA6\u0CBE\u0CB8 \u0CB8\u0CBF\u0CA6\u0CCD\u0CA7\u0CBE\u0C82\u0CA4 \u0C95\u0CCC\u0CAE\u0CC1\u0CA6\u0CC0 \u2014 Vy\u0101sad\u0101sa Siddh\u0101nta Kaumud\u012B',
+    // The edition's own digest of the other six, and the layer the
+    // volumes are named after. Labelled last because that is where the
+    // page puts it -- after the six it summarises.
+    sarvavyakhyana_sara_sangraha: '\u0CB8\u0CB0\u0CCD\u0CB5\u0CB5\u0CCD\u0CAF\u0CBE\u0C96\u0CCD\u0CAF\u0CBE\u0CA8\u0CB8\u0CBE\u0CB0\u0CB8\u0C82\u0C97\u0CCD\u0CB0\u0CB9 \u2014 Sarvavy\u0101khy\u0101nas\u0101rasa\u1E45graha'
   };
 
   // dasa_pada_text schema (see data/schemas.json): each item is one
@@ -738,7 +804,7 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
           // the flat-items branch below), kept here defensively so a future
           // bhashya[] source naming a commentator this key would slugify to
           // "kannada" can't slip through un-gated.
-          if (DGE_COPYRIGHT_GATED_COMMENTARY_KEYS[key] && !(window.appConfig && window.appConfig.showCopyrightGatedCommentaries)) return;
+          if (DGE_COPYRIGHT_GATED_COMMENTARY_KEYS[key] && !dgeGatedCommentaryViewer()) return;
           commentaries[key] = b.text;
           availableCommentaries[key] = b.commentator || KNOWN_COMMENTARY_LABELS[key] ||
             (key.charAt(0).toUpperCase() + key.slice(1));
@@ -774,6 +840,72 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
     };
   }
 
+  // grantha_layer_v2 (tools/reports/grantha_data_architecture.md): the
+  // spine of a work-family compiled by tools/compile_grantha_v2.py /
+  // compile_anuvyakhyana_v2.py -- units:[{id, ref, text, adhikarana?,
+  // topic?}], one paragraph per unit, `ref` the shared traditional
+  // citation (adhyaya.pada.n) every sibling layer of the family uses as
+  // its join key. This branch handles the SPINE layer only (whichever
+  // layer data/layer_manifest.json's build_v2() recorded as first in
+  // work.json's layers[], "mula" unless spineSlug says otherwise); sibling
+  // tika_*/tippani_* layers are fetched and merged in afterwards by
+  // dgeApplyLayerStitching/dgeMergeStitchedLayer (layer-stitch.js), which
+  // joins by `ref` when a unit carries one, exactly as this branch sets
+  // unitId = ref for every shloka. A unit's own `id` (`<ref>.p<n>`) is not
+  // used as the internal key -- unlike legacy ids it is not even unique
+  // across a whole work (only within its layer file) and multiple mula
+  // units never share a ref in the compiled data, so ref alone addresses
+  // every spine card.
+  if (data.schema === 'grantha_layer_v2' && Array.isArray(data.units)) {
+    const shlokas = {};
+    let n = 0;
+    data.units.forEach(u => {
+      const ref = u.ref || u.id || '';
+      if (!ref) return;
+      n++;
+      const parts = String(ref).split('.').map(x => parseInt(x, 10));
+      const adhyaya = Number.isFinite(parts[0])
+        ? (DGE_ADHYAYA_WORDS[parts[0]] || ('अध्यायः ' + dgeToDevanagariDigits(parts[0])))
+        : '';
+      const pada = Number.isFinite(parts[1])
+        ? (DGE_PADA_WORDS[parts[1]] || ('पादः ' + dgeToDevanagariDigits(parts[1])))
+        : '';
+      shlokas[n] = {
+        markup: data.markup || '',
+        sa: dgeStripEditionMarkers(dgeSanitizeVedicAccents(u.text || '')),
+        vedicId: ref,
+        unitId: ref,
+        rishi: '', devata: '', chandas: '', padapatha: '',
+        commentaries: {},
+        geminiEnrichment: null,
+        // Same [work, layer, adhyaya, pada, adhikarana, topic, unit] shape
+        // the legacy breadcrumb branch below builds, so layer-stitch.js's
+        // dgeInitSectionNav (Adhyaya > Pada > Adhikaraṇa navigator) works
+        // unchanged on a v2 spine -- adhyaya/pada come from `ref` since v2
+        // units carry no breadcrumb array of their own.
+        breadcrumb: (adhyaya || pada || u.adhikarana)
+          ? [granthaTitle || data.work || '', data.layer || '', adhyaya, pada,
+             u.adhikarana || '', u.topic || '', ref]
+          : null,
+        category: '',
+        sourceHtml: '',
+        tirthaLink: '',
+        bhagavataLink: null
+      };
+    });
+    console.log(`[Data] Normalized "${granthaTitle || 'untitled'}" (grantha_layer_v2): ${n} unit(s)`);
+    return {
+      metadata: {
+        title: granthaTitle || data.work || 'Untitled',
+        author: data.default_author || '',
+        totalShlokas: n,
+        availableCommentaries: {}
+      },
+      shlokas,
+      totalShlokas: n
+    };
+  }
+
   if (Array.isArray(data.items)) {
     const shlokas = {};
     const availableCommentaries = {};
@@ -793,6 +925,12 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
       Object.keys(commentaries).forEach(key => {
         if (!availableCommentaries[key]) {
           availableCommentaries[key] = KNOWN_COMMENTARY_LABELS[key] || (key.charAt(0).toUpperCase() + key.slice(1));
+          // Say so, on the picker itself. An admin reading a gated layer
+          // should not have to remember which of the layers in front of
+          // them is the one a reader cannot see.
+          if (DGE_COPYRIGHT_GATED_COMMENTARY_KEYS[key]) {
+            availableCommentaries[key] += ' \u2014 \u0905\u0927\u093F\u0915\u0943\u0924\u092E\u0947\u0935 (admin only)';
+          }
         }
       });
       shlokas[n] = {
@@ -1126,6 +1264,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchGranthaData(0)
       .then(async data => {
+        // A layer split into scholar-sized parts (tools/split_grantha_layer.py)
+        // fetches at this exact path as a small grantha_layer_v2_index
+        // instead of the full unit list; resolved transparently here, once,
+        // before anything below (or dgeNormalizeGranthaData) sees it, so a
+        // split grantha and an unsplit one are indistinguishable downstream.
+        if (typeof window.dgeResolveLayerV2Parts === 'function') {
+          data = await window.dgeResolveLayerV2Parts(window.jsonFileName, data);
+        }
         // Logged BEFORE normalization so the raw file shape is visible —
         // if this doesn't match what you just uploaded, the problem is
         // the fetch (stale cache, wrong path), not the rendering.
@@ -1344,11 +1490,11 @@ window.dgeHighlightQueryOnLoad = dgeHighlightQueryOnLoad;
 
 // SEO canonical (7 Sep 2026, tools/seo): the interactive reader is one URL family (?path=…&jumpShloka=…, ?rv1.1.3)
 // over content that also exists as static pages (/veda/rigveda/samhita/mandala-1/…). Once those pages are
-// served (config/seo.json canonicalLive), the reader points <link rel="canonical"> at the grantha's page so
+// served (admin/config/seo.json canonicalLive), the reader points <link rel="canonical"> at the grantha's page so
 // search engines index the crawlable copy and treat every reader URL as a view of it.
 window.dgeApplySeoCanonical = async function (slug) {
   try {
-    const cfg = await fetch('../config/seo.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
+    const cfg = await fetch('../admin/config/seo.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
     if (!cfg || !cfg.canonicalLive) return;
     const map = await fetch('data/seo_urls.json').then(r => r.ok ? r.json() : null).catch(() => null);
     const hit = map && map.granthas && map.granthas[slug];

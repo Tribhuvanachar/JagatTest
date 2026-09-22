@@ -15,10 +15,11 @@ window.DGE_VERSIONS['render.js'] = 'v5.0 (बन्नञ्जे-पाठः:
 // source -- any doubt and the text is returned untouched.
 const _dgePadaCache = new Map();
 // Body text goes to innerHTML, and the corpus deliberately carries markup in
-// it -- span/div/br/b/em put there by importers. So it cannot simply be
-// escaped; it is passed through dge-sanitize.js, which keeps those tags and
-// escapes everything else, so a stray '<' typed by a content editor survives
-// to the page instead of taking the rest of the line with it.
+// it -- 17,086 span/div/br/b/em tags. So it cannot simply be escaped; it is
+// passed through dge-sanitize.js, which keeps those tags and escapes the rest.
+// That is what makes the Siddhanta Kaumudi's <{SK121}> citations visible again
+// instead of being swallowed as unknown tags, and what makes a stray '<' typed
+// by a content editor survive to the page.
 //
 // Falls through unchanged if the module is not loaded, which is exactly the
 // behaviour of every build before it existed -- a missing script must not
@@ -862,7 +863,7 @@ function renderList() {
     // Source view (1 Sep 2026, DvaitaVedanta re-harvest): units imported
     // with sanitized source-site markup (core.js's sourceHtml — class=
     // "shloka" pratika banners, h3 layer headings, lang="HI" spans) get a
-    // 🕮 toggle showing the unit exactly as the source site lays it out,
+    // 🕮 toggle showing the unit exactly as dvaitavedanta.in lays it out,
     // styled by those same class hooks mapped onto DGE tokens (main.css's
     // .dge-srcview rules). The markup was sanitized at import (tags/class/
     // lang/id only) and ships in this repo's own data.json — the same
@@ -873,7 +874,7 @@ function renderList() {
       ? `<div class="dge-srcview" hidden>${shloka.sourceHtml}</div>` : '';
 
     // बन्नञ्जे-पाठः. Sumadhva Vijaya is read in two recensions: the one most
-    // of the tradition accepts (the primary text here, from the source site)
+    // of the tradition accepts (the primary text here, from dvaitavedanta.in)
     // and Bannanje Govindacharya's critical edition, which admits fewer
     // verses. Where his reading exists it is offered on the verse itself
     // rather than buried in a picker -- the lead's ask, 9 Sep 2026: "there

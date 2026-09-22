@@ -28,11 +28,8 @@ const appConfig = {
   // grantha JSON file — see dgeGetEffectiveAudioBaseUrl.
   audioBaseUrl: "https://archive.org/download/",
   // Kamadhenu ZeroGPU Space for "Generate this verse" (js/kamadhenu.js). Empty = feature off.
-  // 12 Sep 2026: pulled from the public site -- still a pilot, not ready for
-  // general visitors to trigger (each call spends real paid ZeroGPU compute
-  // on a PRO account). js/kamadhenu.js, pages/kamadhenu/ and data/kamadhenu/
-  // moved to the working repository; re-deploy from there once the pilot is ready.
-  kamadhenuSpaceUrl: "",
+  // Deploy with tools/kamadhenu/space/build_space.sh, then set "https://sarvamulaorg-kamadhenu.hf.space" (HF user SarvamulaOrg).
+  kamadhenuSpaceUrl: "https://sarvamulaorg-kamadhenu.hf.space",   // live since 6 Sep 2026, 7:35 pm IST (ZeroGPU, PRO account)
   // Full ~1.65M-headword, 63-dictionary Kosha corpus, built and published
   // to the "dist" branch of the separate Tribhuvanachar/Kosha
   // repo (too large for this repo's 1GB budget). Served over jsDelivr's
@@ -47,20 +44,10 @@ const appConfig = {
   // breaks search entirely for those users. A SHA ref is immutable and
   // always internally consistent. After each kosha-data build, update
   // this SHA (git ls-remote <data-repo> dist) and bump config.js's ?v=.
-  // 15 Sep 2026: was a jsDelivr pin to a separate kosha-data repo, which
-  // returns 404 — so every lookup answered "No headword found" while 63 MB of
-  // the same dictionaries sat unread in data/kosha/ in this very repository.
-  // js/kosha.js already defaults to that path; the override was the only thing
-  // pointing it elsewhere. Set this back to a CDN only when the corpus really
-  // outgrows Pages, and check the URL resolves before you do.
-  koshaDataBase: "data/kosha",
+  koshaDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Kosha@54072a8d40d4907df588d722b3796afe06ec2568/data/koshas",
   // The enriched render tree (koshas_r) that kosha2.html displays —
   // built by the same Action from tools/kosha_enrich.py; same SHA.
-  // The enriched render tree has no local build, so this stays empty rather
-  // than pointing at the same dead pin. kosha2.html already degrades honestly
-  // when it is absent ("Browse needs the enriched index"), and search — which
-  // is what a reader actually reaches for — does not depend on it.
-  koshaRenderBase: "",
+  koshaRenderBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Kosha@54072a8d40d4907df588d722b3796afe06ec2568/data/koshas_r",
   // The Sanskrit WordNet lookup tree that js/intellisense.js reads for the
   // अर्थः section of the word popover, built by tools/build_wordnet.py and
   // published to this repo's own "wordnet-dist" branch — data only, no
@@ -70,21 +57,19 @@ const appConfig = {
   // limit left. GitHub Pages serves only main, so a branch is enough to keep
   // it off the site while jsDelivr still serves it. Set this to '' to read a
   // local build from data/_wordnet/ instead.
-  wordnetDataBase: "search_index/_wordnet",
+  wordnetDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@66c7895fa7b1f30150ebbf74ea67abc28909e550/_wordnet",
   // The Kavya corpus js/kavya.js reads -- 24 works, 49 layers, 67,169
   // entries, 50 MB -- on this repo's "kavya-dist" branch for the same
   // reason. kavya.html carries the same URL as its own default, since it
   // does not load this file.
-  kavyaDataBase: "search_index",
+  kavyaDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@75ef2103bc07770ccb861497c32636d706c09fa4",
   // The corpus-search index js/dge-search.js reads -- 983 granthas, 104,870
   // units. Rebuilding it with the extract_text fix (the one that made
   // every shloka-based grantha index its verses rather than nothing) took the
   // published site from 966 MB to 1,013 MB against a 1 GB Pages ceiling, so
   // the index moved to the "search-dist" branch and the site came back to
   // about 685 MB. window.DGE_SEARCH_INDEX was already the override the search
-  // client looks for. backlinks/ stays on main -- it is 0.1 MB. (Renamed from
-  // search_index/ on 14 Sep 2026: the name promised the 330 MB index and
-  // delivered a backlink graph, which cost a round of confusion.)
+  // client looks for. search_index/backlinks stays on main -- it is 0.1 MB.
   // NOTE: this is pinned to a commit, not to @search-dist, so jsDelivr cannot
   // serve a half-written index -- which means reindex.yml publishing a new one
   // changes nothing for readers until this line is bumped to that commit. If a
@@ -104,7 +89,7 @@ const appConfig = {
   // (cdn.jsdelivr.net fetches from the headless browser were dropped by the
   // dev proxy, curl to the same URL was fine) -- worth a quick real-browser
   // check next time this file is touched.
-  searchIndexBase: "search_index",
+  searchIndexBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@838335f8152654c37ee1c256c36b6ff6aab3927f",
   // THE CORPUS SWITCH. Empty (the default, and what is live today) means
   // the reader fetches data/<path>/data.json as a public static file,
   // exactly as it always has. Set it to the corpusFile function's base URL
@@ -313,7 +298,7 @@ window.dgeGetEffectiveShlokaFields = function() {
 //   - optional fine-tuned overrides (safe zone, baked-branding flag) for
 //     specific templates. Anything discovered that ISN'T listed here
 //     still works, just with a generic centered safe zone by default.
-const GITHUB_REPO_CONFIG = { owner: 'Tribhuvanachar', repo: 'buddhi', branch: 'main', imagesPath: 'images' };
+const GITHUB_REPO_CONFIG = { owner: 'Tribhuvanachar', repo: 'bhumandala', branch: 'main', imagesPath: 'images' };
 window.GITHUB_REPO_CONFIG = GITHUB_REPO_CONFIG;
 
 // New-file extensions offered in the admin editor's "+ New File" button —
@@ -323,7 +308,7 @@ window.ADMIN_NEW_FILE_EXTENSIONS = ADMIN_NEW_FILE_EXTENSIONS;
 
 // Admin access levels — each superadmin URL code is bound to a specific
 // root path it can NEVER navigate above, even by tapping "Up" repeatedly.
-// An empty rootPath means the actual repository root (buddhi) — no
+// An empty rootPath means the actual repository root (bhumandala) — no
 // restriction at all. Requested directly by the project lead, 11 Sep 2026:
 // the admin file manager was defaulting to (and capping "Up" at) ,
 // hiding the rest of the repo (tools/, admin/, kamadhenu_dataset/, etc.)
@@ -430,7 +415,7 @@ window.AI_ALLOW_EXTERNAL_LINKS = false;
 // auth + a backend, which is a later phase); each category links to a
 // pre-filled contact email.
 /* The Support and About panels' text — SPONSOR_CONFIG, CONTRIBUTORS_CONFIG and
-   KEY_SPONSORS_CONFIG — now live in content/reader.json, loaded by
+   KEY_SPONSORS_CONFIG — now live in admin/content/reader.json, loaded by
    core.js before the first render and editable in place on the page. They are
    content rather than settings: a sentence about what the project spends
    should not need a code change, and a constant here could only be changed by
@@ -444,7 +429,7 @@ window.AI_ALLOW_EXTERNAL_LINKS = false;
 // array order IS the display order — reorder those manually to reflect
 // priority. Empty by default — nothing invented; add real entries as
 // features actually ship or get planned.
-/* What's New and Coming Soon now live in content/whats-new.json, read
+/* What's New and Coming Soon now live in admin/content/whats-new.json, read
    by js/modals.js each time the panel opens. Publishing an update should
    not need a code change, and a constant here could only be updated by one. */
 
@@ -518,7 +503,7 @@ window.FEATURE_FLAGS = FEATURE_FLAGS;
                 it sends the reader's selection off-site.
 
    Precedence, matching every other configurable in this file: shipped default
-   < global admin (appConfig.wordActions, via config/config-overrides.json)
+   < global admin (appConfig.wordActions, via admin/config/config-overrides.json)
    < per-device (localStorage 'word_actions_override', ⚙️ → 🎛️).
    --------------------------------------------------------------------------- */
 const WORD_ACTIONS = [

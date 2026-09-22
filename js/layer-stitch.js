@@ -15,7 +15,7 @@
 //      No manifest entry -> this module does nothing for that grantha.
 //   2. Opening a mula spine advertises every joinable sibling layer in
 //      metadata.availableCommentaries — WITHOUT fetching any of them
-//      (nyaya_sudha's layers total ~42 MB; the spine alone is 2.6 MB).
+//      (anuvyakhyana_sudha's layers total ~42 MB; the spine alone is 2.6 MB).
 //   3. A layer's data.json is fetched only when the reader actually turns
 //      that commentary on, then merged into shlokas[n].commentaries by id
 //      (exact id first, then the importer's -N collision suffix stripped).
@@ -45,12 +45,20 @@ window.dgeLayerManifestPromise = fetch('data/layer_manifest.json?t=' + Date.now(
 // Keys and targets are grantha-dir slugs relative to data/. Each chain is
 // rendered oldest-first above the title, ending at the current grantha.
 const DGE_GRANTHA_LINEAGE = {
-  'darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/nyaya_sudha': [
-    { label: 'ब्रह्मसूत्राणि', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya/mula' },
-    { label: 'अनुव्याख्यानम्', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana/mula' }
-  ],
   'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana': [
     { label: 'ब्रह्मसूत्राणि', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya/mula' }
+  ],
+  // grantha_layer_v2 consolidation (see tools/compile_anuvyakhyana_v2.py) of
+  // what used to be the separate later_acharyas/nyaya_sudha folder, retired
+  // 20 Sep 2026 once this tree carried everything it had. Its own mula IS
+  // the Anuvyakhyana verses too (with Nyayasudha and the upa-tikas stitched
+  // onto them) -- the second hop here links to the OTHER copy,
+  // sutra_prasthana/anuvyakhyana/mula, which is just the bare verses with
+  // no commentary, a genuinely different reading (plain text vs.
+  // annotated), not a self-reference.
+  'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana_sudha': [
+    { label: 'ब्रह्मसूत्राणि', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya/mula' },
+    { label: 'अनुव्याख्यानम्', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana/mula' }
   ],
   'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya': [
     { label: 'ब्रह्मसूत्राणि', slug: null } // the spine of this grantha IS the sutra text
@@ -85,15 +93,21 @@ window.dgeApplyLayerStitching = async function(slug) {
   const leafDir = slug.slice(lastSlash + 1);
   const entry = manifest.granthas[parent];
   if (!entry) return;
+  // Legacy families' spine folder is always "mula"; a grantha_layer_v2
+  // family's spine is whichever layer work.json lists first (build_v2() in
+  // tools/build_layer_manifest.py records it as spineSlug only when it
+  // ISN'T "mula", e.g. brahma_sutra's is "sutra").
+  const spineDir = entry.spineSlug || 'mula';
 
-  if (leafDir !== 'mula') {
-    // A tika_* layer opened standalone: keep it exactly as it renders
-    // today, but remember enough to offer the way back to the full view.
-    if (leafDir.indexOf('tika_') === 0) {
+  if (leafDir !== spineDir) {
+    // A tika_*/tippani_* layer opened standalone: keep it exactly as it
+    // renders today, but remember enough to offer the way back to the
+    // full view.
+    if (leafDir.indexOf('tika_') === 0 || leafDir.indexOf('tippani_') === 0) {
       const layer = (entry.layers || []).find(l => l.folder === leafDir);
       dgeStitch = {
         role: 'tika', granthaRel: parent, granthaTitle: entry.title || '',
-        mulaSlug: parent + '/mula', layerLabel: layer ? layer.label : ''
+        mulaSlug: parent + '/' + spineDir, layerLabel: layer ? layer.label : ''
       };
     }
     return;
@@ -105,7 +119,7 @@ window.dgeApplyLayerStitching = async function(slug) {
   const layers = {};
   (entry.layers || []).forEach(l => {
     if (!l.matched) return; // ids don't join this grantha's mula — leave standalone
-    let key = l.folder.replace(/^tika_/, '');
+    let key = l.folder.replace(/^tika_/, '').replace(/^tippani_/, '');
     if (meta.availableCommentaries[key] && !layers[key]) key = 'layer_' + key;
     if (layers[key]) return;
     layers[key] = { folder: l.folder, label: l.label || key, author: l.author || '',
@@ -184,6 +198,12 @@ window.dgeEnsureStitchedLayers = function() {
     const url = 'data/' + dgeStitch.granthaRel + '/' + layer.folder + '/data.json?t=' + Date.now();
     fetch(url)
       .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+      // A split layer (tools/split_grantha_layer.py) fetches here as a small
+      // grantha_layer_v2_index instead of its full unit list; resolved
+      // transparently (see corpus-fetch.js's own comment) before the merge
+      // below, which never needs to know the layer was split.
+      .then(data => (typeof window.dgeResolveLayerV2Parts === 'function')
+        ? window.dgeResolveLayerV2Parts(url, data) : data)
       .then(data => { dgeMergeStitchedLayer(key, layer, data); })
       .catch(err => {
         console.error(`[Stitch] failed to load ${layer.folder}:`, err);
@@ -201,18 +221,29 @@ window.dgeEnsureStitchedLayers = function() {
 };
 
 function dgeMergeStitchedLayer(key, layer, data) {
-  const items = (data && Array.isArray(data.items)) ? data.items : [];
+  // grantha_layer_v2 layer files hold `units`, not `items` (see
+  // tools/build_layer_manifest.py's build_v2() docstring); everything else
+  // here is shape-compatible once that array is found.
+  const items = (data && Array.isArray(data.items)) ? data.items
+    : (data && Array.isArray(data.units)) ? data.units : [];
   let merged = 0, unmatched = 0;
   items.forEach(item => {
-    const n = dgeStitch.idMap[item.id] !== undefined
-      ? dgeStitch.idMap[item.id]
+    // v2 units carry an explicit `ref` — the SAME join key
+    // dgeNormalizeGranthaData's grantha_layer_v2 branch set as the spine's
+    // unitId — so it is tried first. Legacy items have no `ref` field and
+    // fall through to the id-based lookup unchanged.
+    const joinKey = item.ref || item.id;
+    const n = dgeStitch.idMap[joinKey] !== undefined
+      ? dgeStitch.idMap[joinKey]
       : dgeStitch.idMap[dgeStitchBaseId(item.id)];
     if (n === undefined) { unmatched++; return; }
     let text = item.sanskrit_text || item.text || '';
-    // Every tika item repeats the site's own layer heading as its first
-    // line ("परिमळ\n..."); the tab label already says it. Strip ONLY a
-    // short heading line that matches the label — never body text.
-    const nl = text.indexOf('\n');
+    // Every legacy tika item repeats the site's own layer heading as its
+    // first line ("परिमळ\n..."); the tab label already says it. Strip ONLY
+    // a short heading line that matches the label — never body text. v2
+    // units (item.ref present) were compiled as pure paragraph text with no
+    // such heading, so this heuristic never applies to them.
+    const nl = !item.ref ? text.indexOf('\n') : -1;
     if (nl > 0 && nl <= layer.label.length + 12) {
       const first = text.slice(0, nl).trim();
       if (first === layer.label || first.indexOf(layer.label) !== -1 || layer.label.indexOf(first) !== -1) {
@@ -273,12 +304,12 @@ window.dgeRenderStitchChrome = function() {
       let cum = '';
       segs.forEach(seg => {
         cum = cum ? cum + '/' + seg : seg;
-        parts.push(`<a class="lineage-link" href="index.html?libraryPath=${encodeURIComponent(cum)}">${window.dgeSegLabel(seg, cum)}</a>`);
+        parts.push(`<a class="lineage-link" href="render.html?libraryPath=${encodeURIComponent(cum)}">${window.dgeSegLabel(seg, cum)}</a>`);
       });
     }
     // Standalone commentary layer: the way back to the stitched grantha.
     parts.push(`<span class="lineage-note">${t('अयं ग्रन्थभागः')} — </span>` +
-      `<a class="lineage-link" href="index.html?path=${encodeURIComponent(dgeStitch.mulaSlug)}">` +
+      `<a class="lineage-link" href="render.html?path=${encodeURIComponent(dgeStitch.mulaSlug)}">` +
       `${t(dgeStitch.granthaTitle || 'सम्पूर्णग्रन्थः')}</a>` +
       `<span class="lineage-note"> ${t('इत्यस्य')} ${t(dgeStitch.layerLabel || '')} </span>`);
   } else {
@@ -288,7 +319,7 @@ window.dgeRenderStitchChrome = function() {
     if (chain && chain.length) {
       chain.forEach(link => {
         parts.push(link.slug
-          ? `<a class="lineage-link" href="index.html?path=${encodeURIComponent(link.slug)}">${t(link.label)}</a>`
+          ? `<a class="lineage-link" href="render.html?path=${encodeURIComponent(link.slug)}">${t(link.label)}</a>`
           : `<span class="lineage-node">${t(link.label)}</span>`);
       });
       const ownTitle = (window.stotraData && window.stotraData.metadata && window.stotraData.metadata.title) || '';
@@ -306,7 +337,7 @@ window.dgeRenderStitchChrome = function() {
       let cum = '';
       segs.forEach(seg => {
         cum = cum ? cum + '/' + seg : seg;
-        parts.push(`<a class="lineage-link" href="index.html?libraryPath=${encodeURIComponent(cum)}">${window.dgeSegLabel(seg, cum)}</a>`);
+        parts.push(`<a class="lineage-link" href="render.html?libraryPath=${encodeURIComponent(cum)}">${window.dgeSegLabel(seg, cum)}</a>`);
       });
       // The label table first, metadata.title only as a fallback: this node is
       // the GRANTHA folder, whereas metadata.title describes the layer being
@@ -331,12 +362,19 @@ window.dgeRenderStitchChrome = function() {
 // Built from the per-item breadcrumb the importer already stores:
 // [grantha, layer, adhyaya, pada, adhikarana, topic, unit]. The first two
 // levels name the book, the last names the unit itself; everything
-// between is the structural path. Grouping on up to the first THREE
-// structural levels gives exactly the adhikarana picker a Dvaita reader
-// expects on nyaya_sudha (अध्याय > पाद > अधिकरण) and degrades gracefully
-// on shallower texts (gita_bhashya: adhyaya only). Does nothing when
-// breadcrumbs are absent (every non-DvaitaVedanta text) or there is only
-// one section to pick.
+// between is the structural path. Grouping on up to the first FOUR
+// structural levels gives the adhikarana AND its own headings (the
+// project lead, 16 Sep 2026: within one adhikarana — "jijñāsādhikaraṇa"
+// etc. — there can be several headings, each its own sub-section with its
+// own sudhā chunk(s); picking a heading should jump straight to it, not
+// just to the adhikarana's first verse). Grouped by the shared parent path
+// (adhyaya · pada · adhikarana), so headings under the same adhikarana
+// nest under one <optgroup> — the two-tier "adhikarana, then its
+// headings" picker the lead described, built from the one native <select>
+// this reader already has rather than a second panel. Degrades gracefully
+// on shallower texts (gita_bhashya: adhyaya only, one level). Does nothing
+// when breadcrumbs are absent (every non-DvaitaVedanta text) or there is
+// only one section to pick.
 window.dgeInitSectionNav = function() {
   const row = document.getElementById('sectionNavRow');
   const select = document.getElementById('sectionNavSelect');
@@ -381,14 +419,14 @@ window.dgeInitSectionNav = function() {
   }
 
   // MODE B — structural breadcrumb sections (nyaya_sudha अध्याय > पाद >
-  // अधिकरण, gita_bhashya adhyaya): the dropdown JUMPS to a section's first
-  // verse, unchanged from the original navigator.
+  // अधिकरण > heading, gita_bhashya adhyaya): the dropdown JUMPS to a
+  // section's first verse.
   const groups = []; // [{path:[...], firstN}], in reading order
   const seen = {};
   order.forEach(n => {
     const crumbs = window.stotraData.shlokas[n].breadcrumb;
     if (!Array.isArray(crumbs) || crumbs.length < 4) return;
-    const path = crumbs.slice(2, -1).slice(0, 3);
+    const path = crumbs.slice(2, -1).slice(0, 4);
     if (!path.length) return;
     const keyStr = path.join('>');
     if (seen[keyStr] === undefined) {
@@ -398,8 +436,10 @@ window.dgeInitSectionNav = function() {
   });
   if (groups.length < 2) return;
 
-  // <optgroup> per parent path (adhyaya · pada), one <option> per deepest
-  // section — native, keyboard/mobile friendly, no new popup plumbing.
+  // <optgroup> per parent path (adhyaya · pada · adhikarana on a 4-level
+  // text; adhyaya · pada on a 3-level one, etc.), one <option> per deepest
+  // section (a heading, where the data goes that deep) — native,
+  // keyboard/mobile friendly, no new popup plumbing.
   let html = `<option value="">${t('विभागं चिनुत')}…</option>`;
   let openGroup = null;
   groups.forEach(g => {
@@ -467,7 +507,7 @@ const DGE_VOLUME_WORDS = ['sarga', 'kanda', 'amsha', 'adhyaya', 'parva', 'ullasa
 const DGE_VOLUME_RE = new RegExp('^(' + DGE_VOLUME_WORDS.join('|') + ')_(\\d+)$', 'i');
 
 window.dgeGoToVolume = function(slug) {
-  if (slug) window.location.href = 'index.html?path=' + encodeURIComponent(slug);
+  if (slug) window.location.href = 'render.html?path=' + encodeURIComponent(slug);
 };
 
 window.dgeInitVolumeNav = async function() {

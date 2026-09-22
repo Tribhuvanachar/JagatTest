@@ -3,8 +3,7 @@
 
    The corpus already knows. Every commentary that comments on a sūtra says so
    in its own references[].target, and build_search_index.py inverts all of
-   them into backlinks/backlinks.json (was search_index/, renamed 14 Sep 2026 —
-   that folder never held the search index, only this graph) — 22,929 pointers. Until now nothing
+   them into search_index/backlinks.json — 22,929 pointers. Until now nothing
    in the reader showed them, so a student reading a sūtra had no way to learn
    that seven commentaries discuss it, or to get to any of them.
 
@@ -30,8 +29,8 @@
 
   const self = (document.currentScript && document.currentScript.src) || '';
   function url(rel) {
-    try { return new URL('../backlinks/' + rel, self).href; }
-    catch (e) { return 'backlinks/' + rel; }
+    try { return new URL('../search_index/backlinks/' + rel, self).href; }
+    catch (e) { return 'search_index/backlinks/' + rel; }
   }
 
   const esc = (s) => String(s == null ? '' : s)
@@ -101,7 +100,7 @@
       '<button class="dge-si-x" data-bl-close aria-label="Close">✕</button></div>' +
       '<div class="dge-si-row"><b>व्याख्यातारः</b></div>' +
       rows.map(function (r) {
-        return '<a class="dge-bl-item" href="index.html?path=' + encodeURIComponent(r.slug) +
+        return '<a class="dge-bl-item" href="render.html?path=' + encodeURIComponent(r.slug) +
                '&jumpVedicId=' + encodeURIComponent(r.unit) + '">' +
                '<span class="dge-bl-name">' + esc(tr(label(r.slug))) + '</span>' +
                (r.note && r.note !== 'comments_on'

@@ -19,7 +19,7 @@
   // window.DGE_SEARCH_INDEX from appConfig; this constant is the same URL, so
   // a page that does not load config.js still finds it. Set the variable to
   // 'search_index' to read a local build instead.
-  var CDN_INDEX = 'search_index';
+  var CDN_INDEX = 'https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@838335f8152654c37ee1c256c36b6ff6aab3927f';
   var INDEX_BASE = window.DGE_SEARCH_INDEX || CDN_INDEX;
   var idxPromise = null, debounce = null;
   var currentScheme = 'auto'; // set by the scheme popup, read by queryOpts()
@@ -530,7 +530,7 @@
     inp.dispatchEvent(new Event('input')); inp.focus();
   };
 
-  // Curator "hide from search" (config/library-overrides.json's
+  // Curator "hide from search" (admin/config/library-overrides.json's
   // searchHidden list — written by the Library Manager, independent of the
   // Library tree's own hidden list). Admins still see the hits, exactly
   // like the admin-only grantha filter beside it in render().
@@ -544,7 +544,7 @@
   // go-live shelf pointless.
   var gsMoves = {};
   try {
-    fetch(new URL('config/library-overrides.json', GS_ROOT).href, { cache: 'no-store' })
+    fetch(new URL('admin/config/library-overrides.json', GS_ROOT).href, { cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (ov) {
         gsSearchHidden = (ov && Array.isArray(ov.searchHidden)) ? ov.searchHidden : [];
@@ -972,12 +972,25 @@
   // since the corpus-usage button, or any other page that loads this file)
   // — page-relative navigation would otherwise produce e.g.
   // ashtadhyayi.html?path=..., which that page ignores.
+  /* The reader is render.html -- it is the only page that loads js/core.js,
+   * which is what reads ?path= and ?libraryPath=.
+   *
+   * This used to rewrite the CURRENT page's last segment to index.html, and
+   * that was wrong in both directions, proven in a browser on 20 Sep 2026:
+   *
+   *   - from /vyakarana/dhatu.html it produced /vyakarana/index.html, which
+   *     does not exist. Clicking any search result there was a flat 404.
+   *   - from the site root it produced /index.html, which is the LANDING
+   *     page. index.html forwards only short-form URLs (?SMV=1.1, the regex
+   *     at the top of it); a full ?path= is not forwarded, so the reader saw
+   *     the landing page and never the work they clicked.
+   *
+   * Resolved from GS_ROOT rather than the current page, because the pages
+   * that carry search sit at different depths and the reader is at the root
+   * for all of them. */
   function readerBase() {
-    var path = window.location.pathname;
-    if (!/\/(index\.html)?$/.test(path)) {
-      path = path.replace(/[^/]*$/, 'index.html');
-    }
-    return path;
+    try { return new URL('render.html', GS_ROOT).href; }
+    catch (e) { return 'render.html'; }
   }
 
   function go(slug, unit, hl) {
@@ -1009,6 +1022,16 @@
   // matching that same convention -- the row itself is already the click
   // target to open it (see renderRows()'s own row.onclick).
   function taxonomyCrumbsHtml(grantha, title) {
+    // An opaque id is not a path and must not be split into one. Walking it
+    // would produce a single crumb reading "id:q7m4k2px", and linking that
+    // crumb would send a reader to a library path that does not exist. What
+    // is shown instead comes from data/display.json -- the work's own title
+    // and OUR shelf above it, never anything from below.
+    if (typeof window.dgeIsOpaqueId === 'function' && window.dgeIsOpaqueId(grantha)) {
+      return '<div class="dge-gs-crumbs dge-gs-crumbs-opaque" data-opaque="' +
+        esc(grantha) + '"><span class="dge-gs-crumb-current">' +
+        esc(title || '') + '</span></div>';
+    }
     var segs = String(grantha || '').split('/').filter(Boolean);
     if (!segs.length) return '';
     var base = readerBase();
@@ -1452,7 +1475,26 @@
         // A result the reader actually opened is a search worth remembering.
         var inpEl = document.getElementById('dge-gs-input');
         if (inpEl) gsPushHistory(inpEl.value);
-        go(row.getAttribute('data-slug'), row.getAttribute('data-unit'), lastQueryDeva || q);
+        var slug = row.getAttribute('data-slug');
+        var unit = row.getAttribute('data-unit');
+        if (typeof window.dgeIsOpaqueId === 'function' && window.dgeIsOpaqueId(slug)) {
+          // No public page exists for this work, so for a reader the row is
+          // the end of the road and saying so is better than a dead click.
+          // An admin's token turns the id back into a path.
+          if (!window.dgeOpaqueIsAdmin()) {
+            if (typeof window.showToast === 'function') {
+              window.showToast('This text is in the reference collection and has no public page.');
+            }
+            return;
+          }
+          window.dgeOpaqueReaderUrl(slug, unit).then(function (url) {
+            window.location.href = url;
+          }).catch(function (e) {
+            if (typeof window.showToast === 'function') window.showToast(e.message);
+          });
+          return;
+        }
+        go(slug, unit, lastQueryDeva || q);
       };
     });
     // Sutra numbers appearing in a snippet get the same tappable popover
@@ -1463,6 +1505,12 @@
     // header comment and in render.js's equivalent pairing.
     if (typeof window.dgeScanForEntities === 'function') {
       try { window.dgeScanForEntities(box); } catch (e) {}
+    }
+    // The index's idea of a title for these is the last path segment, which
+    // is `mula` for most of them. display.json has the real one; this swaps
+    // it in once that fetch lands.
+    if (typeof window.dgeOpaqueDecorate === 'function') {
+      try { window.dgeOpaqueDecorate(box); } catch (e) {}
     }
     if (typeof window.dgeScanForSutras === 'function') {
       // Per-row, not once over the whole results box: intellisense.js's own
@@ -1695,7 +1743,21 @@
   // one place that reliably holds regardless of what the index contains.
   // Not real access control -- same caveat as admin-gate.js: this hides the
   // hit from the UI, it does not restrict the underlying static JSON file.
-  var ADMIN_ONLY_GRANTHA_PREFIXES = ['darshana/vedanta/dvaita/DvaitaVedantaIn', 'dvaitavedanta'];
+  // 20 Sep 2026: this used to be a list of path prefixes, and it stopped
+  // meaning anything the moment those paths became opaque ids -- `indexOf(p)
+  // === 0` against `id:q7m4k2px` is false for every prefix that was in it,
+  // so the filter silently passed everything it had been written to catch.
+  //
+  // It is also no longer what the lead wants. Hiding the HIT hid the text,
+  // which was never the problem; the problem is the breadcrumb. So an
+  // id-addressed hit is now shown to everyone, with its text and its title,
+  // and what an admin gets that a reader does not is the ability to open it.
+  // Kept for anything still carrying a real private path -- a stale index
+  // built before the rewrite, most likely -- which must still be held back.
+  var ADMIN_ONLY_GRANTHA_PREFIXES = ['darshana/vedanta/dvaita/DvaitaVedantaIn',
+                                     'darshana/vedanta/dvaita/Anandamakaranda',
+                                     'darshana/vedanta/vishishtadvaita/RamanujaMeghamala',
+                                     'dvaitavedanta'];
   function dgeSearchIsAdmin() {
     try {
       return localStorage.getItem('acharyaAuthorized') === 'true' ||

@@ -64,8 +64,22 @@ function dgeAudioFileId(id) {
   return width ? String(id).padStart(width, '0') : String(id);
 }
 
+// Not every grantha has recorded audio. Without this check the three
+// filename parts below are each undefined and the URL comes out as the
+// literal "undefinedundefined31undefined", which is then fetched twice —
+// once as the primary and once with the zero-width-space variant — and
+// 404s both times. Maṇimañjarī was the first grantha to reach this code
+// with no audio configured, on 21 Sep 2026; every earlier one happened to
+// carry an archiveBaseUrl, which is the only reason this never fired.
+function dgeHasAudioConfig() {
+  const m = (typeof stotraData !== 'undefined' && stotraData && stotraData.metadata) || null;
+  return !!(m && m.archiveBaseUrl && m.filePrefix && m.fileExtension);
+}
+window.dgeHasAudioConfig = dgeHasAudioConfig;
+
 async function resolveAudioSrc(id) {
   if (!stotraData || !stotraData.metadata) return "";
+  if (!dgeHasAudioConfig()) return "";
 
   const base = dgeEffectiveArchiveBase();
   const fid = dgeAudioFileId(id);
@@ -411,6 +425,14 @@ function playPrevFiltered() {
 
 async function cacheAllAudio(btn) {
   if (!stotraData || btn.dataset.cached === "true") return;
+  // Preloading a grantha that has no audio would queue one doomed fetch
+  // per verse -- 306 of them for Manimanjari -- each for an "undefined"
+  // URL. Say so instead.
+  if (!dgeHasAudioConfig()) {
+    btn.innerText = "No audio";
+    btn.disabled = true;
+    return;
+  }
   if (!('caches' in window)) { 
     alert('This browser does not support offline caching.'); 
     return; 
@@ -488,6 +510,15 @@ if (currentAudio) {
 
   currentAudio.addEventListener('error', () => {
     if (!activeId || !stotraData) return;
+    // A grantha with no recorded audio makes resolveAudioSrc return "",
+    // which itself fires this error event. Without this check the retry
+    // below builds its fallback URL out of the same undefined parts and
+    // asks the server for "undefinedundefined7<ZWSP>undefined".
+    if (!dgeHasAudioConfig()) {
+      const td = document.getElementById('timeDisplay');
+      if (td) td.innerText = "No audio for this text";
+      return;
+    }
     const timeDisplay = document.getElementById('timeDisplay');
     
     if (audioRetryDone) {

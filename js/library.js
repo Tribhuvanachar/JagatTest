@@ -31,7 +31,7 @@ const DGE_PATH_LABELS = {
   // The branches of the recommended DGE taxonomy (DGE_Shastra_Taxonomy.md).
   // Listed whether or not the corpus has been moved onto it yet: the Library
   // Manager can regroup the tree onto these names without the folders moving
-  // (see the "moves" map in config/library-overrides.json, and
+  // (see the "moves" map in admin/config/library-overrides.json, and
   // tools/restructure_taxonomy.py), and an unlabelled segment falls back to
   // ASCII, which would leave a Sanskrit tree with English branch headings.
   vedanga: 'वेदाङ्गानि',
@@ -56,17 +56,17 @@ const DGE_PATH_LABELS = {
   // second Sarvamula edition. PascalCase matches the actual folder names
   // on disk post-rename -- confirmed directly, not assumed.
   SarvaMula: 'सर्वमूलग्रन्थाः',
-  // 11 Sep 2026: the on-disk folder became Anandamakaranda (after the site
-  // that feeds it) so the name SarvaMula could be reused for the library's
-  // own top-level grouping. Both keys resolve to the same label while the
-  // restructure settles; neither is a rename of the other.
-  Anandamakaranda: 'सर्वमूलग्रन्थाः',
   // The V1 restructure's own segments (11 Sep 2026). Without these the
   // breadcrumb reads "Itara > Kavya" in Latin beside Devanagari on
   // either side of it.
   Itara: 'इतराणि', Kavya: 'काव्यम्', Stotra: 'स्तोत्राणि', DasaSahitya: 'दाससाहित्यम्',
-  DvaitaVedantaIn: 'द्वैतसाहित्यम्',
-  DvaitaVedanta: 'द्वैतवेदान्तः', SetuTila: 'सेतुतिला',
+  // 20 Sep 2026: the shelves named after their source websites are NOT
+  // listed here any more. Labelling them publicly meant shipping the names
+  // in a file every page loads, to label a breadcrumb no public page shows
+  // -- those works have no public path and reach a reader only through an
+  // opaque id. js/private-names.js supplies the labels in the private
+  // checkout, where an admin does browse the real paths; it does not publish.
+  Tattvavada: 'तत्त्ववादः', SetuTila: 'सेतुतिला',
   sarvadarshana_sangraha: 'सर्वदर्शनसङ्ग्रहः',
 
   // 23 Aug: upaveda/shastra, added per the project lead's own framework
@@ -140,7 +140,6 @@ const DGE_PATH_LABELS = {
   taittiriya_aranyaka: 'तैत्तिरीयारण्यकम्',
   // Sri Ramanuja Meghamala import groups (2 Sep 2026)
   // (the three *_prasthana keys it shares are already defined below)
-  RamanujaMeghamala: 'श्रीरामानुजमेघमाला',
   rahasya_granthas: 'रहस्यग्रन्थाः',
   guruparampara: 'गुरुपरम्परा',
   divya_prabandham: 'दिव्यप्रबन्धम्',
@@ -180,7 +179,8 @@ const DGE_PATH_LABELS = {
   gita_prasthana: 'गीताप्रस्थानम्', sutra_prasthana: 'सूत्रप्रस्थानम्', upanishad_prasthana: 'उपनिषत्प्रस्थानम्', itihasa_prasthana: 'इतिहासप्रस्थानम्',
   purana_prasthana: 'पुराणप्रस्थानम्', sruti_prasthana: 'श्रुतिप्रस्थानम्', gita_bhashya: 'गीताभाष्यम्', gita_tatparya_nirnaya: 'गीतातात्पर्यनिर्णयः',
   itihasa_purana_tatparya_nirnaya: 'इतिहासपुराणतात्पर्यनिर्णयः', bhagavata_tatparya_nirnaya: 'भागवततात्पर्यनिर्णयः', mahabharata_tatparya_nirnaya: 'महाभारततात्पर्यनिर्णयः', rig_bhashya: 'ऋग्भाष्यम्',
-  anubhashya: 'अणुभाष्यम्', anuvyakhyana: 'अनुव्याख्यानम्', brahma_sutra_bhashya: 'ब्रह्मसूत्रभाष्यम्', brahmasutra_bhashya: 'ब्रह्मसूत्रभाष्यम्',
+  anubhashya: 'अणुभाष्यम्', anuvyakhyana: 'अनुव्याख्यानम्', anuvyakhyana_sudha: 'अनुव्याख्यानसुधा',
+  brahma_sutra_bhashya: 'ब्रह्मसूत्रभाष्यम्', brahmasutra_bhashya: 'ब्रह्मसूत्रभाष्यम्', brahma_sutra: 'ब्रह्मसूत्रम्',
   nyaya_vivarana: 'न्यायविवरणम्', upanishad_bhashya: 'उपनिषद्भाष्यम्', aitareya_upanishad: 'ऐतरेयोपनिषत्', aitareyopanishad_bhashya: 'ऐतरेयोपनिषद्भाष्यम्',
   brihadaranyakopanishad_bhashya: 'बृहदारण्यकोपनिषद्भाष्यम्', brihadaranyakopanishadbhashyam: 'बृहदारण्यकोपनिषद्भाष्यम्', chandogyopanishad_bhashya: 'छान्दोग्योपनिषद्भाष्यम्', ishavasyopanishad_bhashya: 'ईशावास्योपनिषद्भाष्यम्',
   kathopanishad_bhashya: 'कठोपनिषद्भाष्यम्', kenopanishad_bhashya: 'केनोपनिषद्भाष्यम्', mandukyopanishad_bhashya: 'माण्डूक्योपनिषद्भाष्यम्', mandukyopanishadbhashyam: 'माण्डूक्योपनिषद्भाष्यम्',
@@ -200,7 +200,7 @@ const DGE_PATH_LABELS = {
   prasannavenkatadasa: 'प्रसन्नवेङ्कटदासः', nyayamrita: 'न्यायामृतम्', tarka_tandava: 'तर्कताण्डवः', madhvamukhalankara: 'मध्वमुखालङ्कारः',
   madhvasiddhantasara: 'मध्वसिद्धान्तसारः', sarvasiddhantasarasaravivecanam: 'सर्वसिद्धान्तसारसारविवेचनम्', shrimanmadhvasiddhantasaroddhara: 'श्रीमन्मध्वसिद्धान्तसारोद्धारः', shrimannyayasudhamandanam: 'श्रीमन्न्यायसुधामण्डनम्',
   shrivijayindravijayavaibhavam: 'श्रीविजयीन्द्रविजयवैभवम्', dvaita_dyumani: 'द्वैतद्युमणिः', bhedaparanyeva_khalu_brahmasutrani: 'भेदपराण्येव खलु ब्रह्मसूत्राणि', bhedojjivana: 'भेदोज्जीवनम्',
-  bhagavato_nirdoshatvalakshanam: 'भागवतनिर्दोषत्वलक्षणम्', candrikamandanam: 'चन्द्रिकामण्डनम्', tatparya_chandrika: 'तात्पर्यचन्द्रिका', nyaya_sudha: 'न्यायसुधा',
+  bhagavato_nirdoshatvalakshanam: 'भागवतनिर्दोषत्वलक्षणम्', candrikamandanam: 'चन्द्रिकामण्डनम्', tatparya_chandrika: 'तात्पर्यचन्द्रिका',
   tantradipika: 'तन्त्रदीपिका', vadavali: 'वादावली', yukti_mallika: 'युक्तिमल्लिका', nyasa_paddhati: 'न्यासपद्धतिः',
   // Vedanta/general Vedantic terms
   omkara_vada: 'ओंकारवादः', vyutpattivada: 'व्युत्पत्तिवादः', shabda_khanda: 'शब्दखण्डः', tithi_nirnaya: 'तिथिनिर्णयः',
@@ -610,7 +610,7 @@ function dgeLocalizeNumerals(text) {
 
 // ---------------------------------------------------------------------- //
 // Library Manager curation overrides (admin/library.html exports
-// config/library-overrides.json). A NON-DESTRUCTIVE display layer only:
+// admin/config/library-overrides.json). A NON-DESTRUCTIVE display layer only:
 // hide/pin/reorder/rename/move all affect how populated granthas group
 // and sort in this tree, never library.json/taxonomy.json or the actual
 // fetch path -- dgeGoToGrantha always navigates on the real slug even
@@ -627,7 +627,7 @@ let dgeLibOverrides = { hidden: [], pinned: [], labels: {}, order: {}, moves: {}
 // browser's localStorage, see admin/library.html) is being overlaid in
 // place of the committed file -- drives the "draft preview" notice in
 // dgeRenderLibraryRoot(). Readers never take this branch: for them the
-// committed config/library-overrides.json is the only source.
+// committed admin/config/library-overrides.json is the only source.
 let dgeLibOverridesDraftPreview = false;
 
 function dgeNormalizeOverrides(ov) {
@@ -661,7 +661,7 @@ async function dgeLoadLibraryOverrides() {
   dgeLibOverridesDraftPreview = false;
   try {
     const url = window.dgeAdminConfigUrl ? window.dgeAdminConfigUrl('library-overrides.json')
-                                        : '../config/library-overrides.json';
+                                        : '../admin/config/library-overrides.json';
     const ov = await fetch(url, { cache: 'no-store' }).then(r => r.ok ? r.json() : null);
     if (ov) {
       dgeLibOverrides = dgeNormalizeOverrides(ov);
@@ -717,7 +717,7 @@ function dgeOverlayManagerDraft(committedUpdatedAt) {
 // 23 Aug 2026: per-grantha "hidden" flag written directly onto a
 // library.json entry (distinct from dgeLibOverrides.hidden above, which is
 // an admin-curated path-prefix list read from library-overrides.json) --
-// admin-only content like darshana/vedanta/dvaita/DvaitaVedantaIn/*, gated
+// admin-only content -- the shelves reached only by an opaque id -- gated
 // the same way admin-gate.js gates a standalone page. Not real access
 // control -- see that file's own caveat -- but keeps it out of the reader
 // nav and quick-jump for anyone who isn't signed in as admin.
@@ -1554,15 +1554,9 @@ function dgeRenderFacetView(node, facetKey) {
 // flex child pushed to the far end of the breadcrumb row via margin-left:auto.
 function dgeSectionTrackerHtml(key) {
   if (!dgeIsSuperAdmin()) return '';
-  // 12 Sep 2026: Library Manager moved to the private the working repository repo —
-  // a plain href can no longer reach it (no public Pages there, and even if
-  // there were, the visitor's browser has no way to attach the token a
-  // private repo needs). Reopens through the same BYOK loader the Admin
-  // popup's own "Management Tools" entry uses.
-  return `<a href="javascript:void(0)"
+  return `<a href="../admin/library.html?section=${encodeURIComponent(key)}" target="_blank" rel="noopener"
       style="margin-left:auto; font-size:11px; color:var(--muted-text); text-decoration:none; white-space:nowrap;"
-      onclick="event.stopPropagation(); window.dgeOpenBrahmaBuddhiPage && window.dgeOpenBrahmaBuddhiPage('bbLibraryManagerItem', '?section=${encodeURIComponent(key)}')"
-      title="Open the completion tracker for this section (super-admin)">📊 Progress</a>`;
+      onclick="event.stopPropagation()" title="Open the completion tracker for this section (super-admin)">📊 Progress</a>`;
 }
 
 // One category's own subtree, reached by tapping its grid tile -- reuses
@@ -1638,7 +1632,7 @@ function dgeRenderLibraryRoot() {
     ? `<div style="font-size:11px; margin-bottom:8px; padding:7px 10px; border:1px dashed var(--accent-gold,#b8860b); border-radius:8px; color:var(--accent-red,#7a3b1d);">
         🛠 <b>Draft preview</b> — showing this browser's unexported Library Manager draft.
         Readers still see the committed file; use <b>⬇ Export overrides</b> in the
-        <a href="javascript:void(0)" onclick="window.dgeOpenBrahmaBuddhiPage && window.dgeOpenBrahmaBuddhiPage('bbLibraryManagerItem')" style="color:inherit;">Library Manager</a>
+        <a href="../admin/library.html" target="_blank" rel="noopener" style="color:inherit;">Library Manager</a>
         and commit it to publish.</div>`
     : '';
   const header = draftNote + `<div style="font-size:11px; color:var(--muted-text); margin-bottom:8px;">${dgeLibPopulatedCount} text(s) available</div>`;
