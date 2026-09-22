@@ -41,6 +41,10 @@ on:
         type: choice
         options: [plan, real-run]
         default: plan
+      workers:
+        description: "Parallel Gemini calls. 6 did 825 blocks in 239 min and still hit the 240-minute job ceiling."
+        required: false
+        default: "10"
 
 concurrency:
   # Two runs over the same staged file would both read it, both write it,
@@ -70,7 +74,36 @@ jobs:
             https://api.github.com/repos/Tribhuvanachar/ShriBuddhi)
           [ "$CODE" = "200" ] || { echo "::error::SHRIBUDDHI_TOKEN cannot read ShriBuddhi (HTTP $CODE)"; exit 1; }
           test -n "${{ secrets.GEMINI_API_KEY }}" || { echo "::error::GEMINI_API_KEY is not set."; exit 1; }
-          echo "private repo reachable, Gemini key present"
+
+          # READ IS NOT ENOUGH, and this step used to stop here. On 22 Sep
+          # 2026 run 35687670866 passed this check, cloned fine, proofread 825
+          # blocks with real money, and only then discovered the token cannot
+          # push: "remote: Invalid username or token". The result survived
+          # only because the artifact step runs before the push step and it
+          # had to be merged back by hand
+          # (ShriBuddhi tools/aitareya/land_proofread.py).
+          #
+          # So prove the WRITE before spending anything. A --dry-run push
+          # authenticates and asks the server for permission without
+          # transferring or changing a single object.
+          PUSHDIR="$RUNNER_TEMP/pushcheck"
+          git init -q "$PUSHDIR"
+          if ! git -C "$PUSHDIR" push --dry-run \
+                 "https://x-access-token:$T@github.com/Tribhuvanachar/ShriBuddhi.git" \
+                 HEAD:refs/heads/__push_permission_probe 2>"$RUNNER_TEMP/push.err"; then
+            if grep -qiE 'permission|denied|not authorized|invalid username or token|403' "$RUNNER_TEMP/push.err"; then
+              sed 's/^/  /' "$RUNNER_TEMP/push.err"
+              echo "::error::SHRIBUDDHI_TOKEN can READ ShriBuddhi but cannot PUSH to it, so this run would spend money and then be unable to save the result. Fix it at GitHub -> Settings -> Developer settings -> Fine-grained tokens -> the token behind SHRIBUDDHI_TOKEN -> Repository permissions -> Contents: Read and write, then update the secret on this repo. (ShriBuddhi is public now, so the alternative is to set GEMINI_API_KEY there and run this workflow in the same checkout as the data, with no token and no push step at all.)"
+              exit 1
+            fi
+            # An unborn HEAD or a server that declines the probe ref for some
+            # other reason is not evidence of a permission problem; say so and
+            # carry on rather than blocking a run that would have worked.
+            sed 's/^/  /' "$RUNNER_TEMP/push.err"
+            echo "::warning::Could not conclusively verify push permission; continuing. If the push at the end fails, the result is still in the gemini-proofread artifact."
+          fi
+          rm -rf "$PUSHDIR"
+          echo "private repo readable AND writable, Gemini key present"
 
       - name: Proofread
         env:
@@ -99,6 +132,7 @@ jobs:
             --staged-dir "$WORK_DIR/data/ocr_staging/aitareya" \
             --volumes "${{ inputs.volumes }}" \
             --budget "${{ inputs.budget }}" \
+            --concurrency "${{ inputs.workers || '10' }}" \
             $EXTRA | tee "$RUNNER_TEMP/run.log"
           {
             echo "## Gemini proofread"
@@ -139,10 +173,26 @@ jobs:
           GEMINI_API_KEY lives, under a Rs${{ inputs.budget }} cap. Blocks
           already carrying text_proofread were skipped, so this is resumable
           and a rerun over a finished file spends nothing."
+          # The loop used to end with an unconditional "pushed the proofread
+          # blocks back" -- so three failed attempts printed success and the
+          # step exited 0. A run that spends money and loses it must not read
+          # as a clean run.
+          PUSHED=no
           for a in 1 2 3; do
-            git push -q "https://x-access-token:$T@github.com/Tribhuvanachar/ShriBuddhi.git" HEAD:main && break
+            if git push -q "https://x-access-token:$T@github.com/Tribhuvanachar/ShriBuddhi.git" HEAD:main; then
+              PUSHED=yes; break
+            fi
             echo "push failed (attempt $a); rebasing and retrying"
             git fetch -q --no-tags origin main && git rebase -q FETCH_HEAD || true
             sleep $((a*5))
           done
+          if [ "$PUSHED" != "yes" ]; then
+            echo "::error::The proofread blocks were PAID FOR but could not be pushed to ShriBuddhi. They are not lost: download this run's \`gemini-proofread\` artifact and land it with ShriBuddhi's tools/aitareya/land_proofread.py --from <unzipped dir> --write. Then fix the token (see the preflight step's message) so the next run does not need rescuing."
+            {
+              echo "### PUSH FAILED — the result is in the \`gemini-proofread\` artifact"
+              echo ""
+              echo "Recover it with ShriBuddhi's \`tools/aitareya/land_proofread.py --from <unzipped dir> --write\`."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
           echo "pushed the proofread blocks back to ShriBuddhi"
