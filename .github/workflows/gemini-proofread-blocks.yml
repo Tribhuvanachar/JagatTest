@@ -1,0 +1,148 @@
+name: Gemini — proofread staged OCR blocks (budget capped)
+
+# Proofreads the segmented OCR blocks in the PRIVATE repo's
+# data/ocr_staging/, and pushes the result back there.
+#
+# WHY THIS RUNS HERE, same reason as gemini-resolve-conflicts.yml: Actions
+# is free and unlimited on a public repository and capped at 2,000 minutes
+# a month on a private one, and GEMINI_API_KEY is a secret HERE and not on
+# ShriBuddhi -- a run there on 22 Sep 2026 reported it empty. Nothing
+# sensitive is committed here: the text arrives from the private repo and
+# leaves for it.
+#
+# WHY A SEPARATE WORKFLOW from gemini-resolve-conflicts.yml: that one
+# adjudicates pages where Sarvam and Vision DISAGREE. This one proofreads
+# blocks where there is only one reading -- the Aitareya volumes are Sarvam
+# only, segmented by tools/aitareya/segment.py into addressed blocks. There
+# is nothing to adjudicate; there is OCR to correct.
+#
+# COSTS MONEY, but little: Gemini is Rs0.0517/page on this corpus, and all
+# three Aitareya volumes together are about Rs85. The run is resumable --
+# a block already carrying text_proofread is skipped -- so an interrupted
+# run costs nothing to resume and a rerun over a finished file spends zero.
+
+on:
+  workflow_dispatch:
+    inputs:
+      volumes:
+        description: "Comma-separated staged volumes under data/ocr_staging/aitareya/"
+        required: true
+        default: "bhagavantaraya,ratnamala,visvesvara_tirtha"
+      budget:
+        description: "Hard cap in rupees. The run stops cleanly when reached; rerun to continue."
+        required: true
+        default: "150"
+      model:
+        description: "Gemini model (blank = the client's default)"
+        required: false
+        default: ""
+      mode:
+        description: "plan counts blocks and spends nothing. real-run calls Gemini."
+        type: choice
+        options: [plan, real-run]
+        default: plan
+
+concurrency:
+  # Two runs over the same staged file would both read it, both write it,
+  # and the second would silently drop the first's paid work.
+  group: gemini-proofread-${{ inputs.volumes }}
+  cancel-in-progress: false
+
+jobs:
+  proofread:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: tools }
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - name: Check the private repo is reachable before spending anything
+        if: ${{ inputs.mode == 'real-run' }}
+        env:
+          T: ${{ secrets.SHRIBUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$T" || { echo "::error::SHRIBUDDHI_TOKEN is not set."; exit 1; }
+          CODE=$(curl -sS -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $T" \
+            https://api.github.com/repos/Tribhuvanachar/ShriBuddhi)
+          [ "$CODE" = "200" ] || { echo "::error::SHRIBUDDHI_TOKEN cannot read ShriBuddhi (HTTP $CODE)"; exit 1; }
+          test -n "${{ secrets.GEMINI_API_KEY }}" || { echo "::error::GEMINI_API_KEY is not set."; exit 1; }
+          echo "private repo reachable, Gemini key present"
+
+      - name: Proofread
+        env:
+          GEMINI_API_KEY: ${{ inputs.mode == 'dry-run' && '' || secrets.GEMINI_API_KEY }}
+          T: ${{ secrets.SHRIBUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          WORK_DIR="$RUNNER_TEMP/priv"
+          # A PARTIAL clone, not a shallow one -- see the long note in
+          # gemini-resolve-conflicts.yml. --depth rewrites .git/shallow on
+          # every fetch and races anything else pushing to ShriBuddhi.
+          git clone -q --filter=blob:none --no-checkout \
+            "https://x-access-token:$T@github.com/Tribhuvanachar/ShriBuddhi.git" "$WORK_DIR"
+          ( cd "$WORK_DIR"
+            for a in 1 2 3; do
+              git fetch -q --no-tags origin main && break
+              echo "fetch of main failed (attempt $a), retrying"; sleep $((a*5))
+            done
+            # The staged blocks live on main, committed by segment.py --write.
+            git checkout -q FETCH_HEAD -- "data/ocr_staging/aitareya" )
+
+          EXTRA=""
+          [ "${{ inputs.mode }}" = "real-run" ] && EXTRA="--real"
+          [ -n "${{ inputs.model }}" ] && EXTRA="$EXTRA --model ${{ inputs.model }}"
+          python3 tools/aitareya/proofread.py \
+            --staged-dir "$WORK_DIR/data/ocr_staging/aitareya" \
+            --volumes "${{ inputs.volumes }}" \
+            --budget "${{ inputs.budget }}" \
+            $EXTRA | tee "$RUNNER_TEMP/run.log"
+          {
+            echo "## Gemini proofread"
+            echo '```'
+            cat "$RUNNER_TEMP/run.log"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep the result as an artifact
+        if: ${{ always() && inputs.mode == 'real-run' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: gemini-proofread
+          path: ${{ runner.temp }}/priv/data/ocr_staging/aitareya/*_segmented.json
+          if-no-files-found: ignore
+
+      - name: Push the proofread blocks back to the private repo
+        # always(), not success(). Blocks already proofread were BILLED, and a
+        # later call timing out is no reason to throw them away -- exactly what
+        # cost Rs6.19 of finished work on 19 Sep. proofread.py writes every 25
+        # blocks for the same reason.
+        if: ${{ always() && inputs.mode == 'real-run' }}
+        env:
+          T: ${{ secrets.SHRIBUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/priv"
+          git config user.name  "jagattest-bot"
+          git config user.email "noreply@anthropic.com"
+          git add data/ocr_staging/aitareya || true
+          if git diff --cached --quiet; then
+            echo "nothing changed -- every block was already proofread"
+            exit 0
+          fi
+          git commit -q -m "Gemini proofread: ${{ inputs.volumes }}
+
+          Ran tools/aitareya/proofread.py from the public repo, where
+          GEMINI_API_KEY lives, under a Rs${{ inputs.budget }} cap. Blocks
+          already carrying text_proofread were skipped, so this is resumable
+          and a rerun over a finished file spends nothing."
+          for a in 1 2 3; do
+            git push -q "https://x-access-token:$T@github.com/Tribhuvanachar/ShriBuddhi.git" HEAD:main && break
+            echo "push failed (attempt $a); rebasing and retrying"
+            git fetch -q --no-tags origin main && git rebase -q FETCH_HEAD || true
+            sleep $((a*5))
+          done
+          echo "pushed the proofread blocks back to ShriBuddhi"
